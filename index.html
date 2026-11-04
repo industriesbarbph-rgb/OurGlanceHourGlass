@@ -48,16 +48,16 @@ main{position:fixed;inset:0;overflow:hidden;isolation:isolate;background:linear-
   font-size:clamp(49px,5.05vw,82px);font-weight:500;line-height:.92;letter-spacing:-.047em;}
 .primary-wordmark .wordline{display:block;white-space:nowrap;}
 .primary-wordmark .wordline + .wordline{margin-top:.085em;}
-/* A deliberately drawn Latin cross takes the place of the lowercase t in Afterword. */
+/* A lowercase-t-sized Latin cross: aligned with the adjacent ascenders and baseline. */
 .cross-letter{
-  position:relative;display:inline-block;width:.37em;height:.91em;
-  vertical-align:-.058em;margin-left:-.012em;margin-right:.018em;
+  position:relative;display:inline-block;width:.36em;height:.76em;
+  vertical-align:-.065em;margin-left:.015em;margin-right:.008em;
 }
 .cross-letter::before,.cross-letter::after{
-  content:'';position:absolute;background:currentColor;border-radius:1px;
+  content:'';position:absolute;background:currentColor;border-radius:0;
 }
-.cross-letter::before{width:.039em;height:.91em;top:0;left:calc(50% - .0195em);}
-.cross-letter::after{width:.34em;height:.039em;top:.255em;left:calc(50% - .17em);}
+.cross-letter::before{width:.043em;height:.76em;top:0;left:calc(50% - .0215em);}
+.cross-letter::after{width:.34em;height:.043em;top:.255em;left:calc(50% - .17em);}
 .service-name{
   margin:clamp(20px,3.6vw,42px) 0 0;
   color:#816F5C;font:500 clamp(10px,.91vw,12px)/1.9 Arial,Helvetica,sans-serif;
@@ -227,16 +227,50 @@ requestAnimationFrame(render);
     "Come close the chapter with me."
 ];
   const text = document.getElementById('farewell-line');
-  if (!text || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!text) return;
+  // Always start at the approved first line, without skipping when the tab is hidden.
   let index = 0;
-  setInterval(() => {
+  text.textContent = farewellLines[index];
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const fadeMs = 700;
+  let displayTimer = null;
+  let fadeTimer = null;
+  let inView = false;
+  let active = false;
+
+  function cancelTimers() {
+    clearTimeout(displayTimer);
+    clearTimeout(fadeTimer);
+    text.classList.remove('is-changing');
+  }
+  function advance() {
     text.classList.add('is-changing');
-    setTimeout(() => {
+    fadeTimer = setTimeout(() => {
       index = (index + 1) % farewellLines.length;
       text.textContent = farewellLines[index];
       text.classList.remove('is-changing');
-    }, 700);
-  }, 9000);
+      if (active) displayTimer = setTimeout(advance, index < 2 ? 15000 : 10000);
+    }, fadeMs);
+  }
+  function setActive(value) {
+    if (active === value) return;
+    active = value;
+    cancelTimers();
+    if (active) displayTimer = setTimeout(advance, index < 2 ? 15000 : 10000);
+  }
+  // On mobile, start the first line when readers reach the typography below the glass.
+  // Pausing in hidden tabs prevents an unseen loop from skipping the opening messages.
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      inView = entries.some(entry => entry.isIntersecting);
+      setActive(inView && !document.hidden);
+    }, { threshold: 0.25 });
+    observer.observe(text);
+  } else {
+    inView = true;
+    setActive(!document.hidden);
+  }
+  document.addEventListener('visibilitychange', () => setActive(inView && !document.hidden));
 })();
 </script>
 </body>
