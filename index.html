@@ -4,7 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#fcfbf9">
-<title>OUR GLASS | The Afterword Concierge</title>
+<title>OUR GLASS | The Afterword Concierge — Death Notification &amp; Beyond</title>
+<meta name="description" content="OUR GLASS introduces The Afterword Concierge, a private space for preparing farewell instructions, staying connected to your people, and planning death notifications and beyond.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_PH">
+<meta property="og:site_name" content="OUR GLASS">
+<meta property="og:title" content="OUR GLASS | The Afterword Concierge">
+<meta property="og:description" content="You &amp; Your People. When the Time Comes. Death Notification &amp; Beyond.">
+<meta property="og:image" content="https://raw.githubusercontent.com/industriesbarbph-rgb/OurGlanceHourGlass/main/og-hourglass.jpg">
+<meta property="og:image:alt" content="An oversized glass hourglass with golden sand, framed by a luminous ivory background">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="OUR GLASS | The Afterword Concierge">
+<meta name="twitter:description" content="You &amp; Your People. When the Time Comes. Death Notification &amp; Beyond.">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/industriesbarbph-rgb/OurGlanceHourGlass/main/og-hourglass.jpg">
+<meta name="color-scheme" content="light">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"OUR GLASS","description":"The Afterword Concierge. Death Notification & Beyond.","inLanguage":"en-PH"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Syncopate:wght@700&display=swap" rel="stylesheet">
@@ -40,7 +55,8 @@ main{position:fixed;inset:0;overflow:hidden;isolation:isolate;background:linear-
 }
 .identity-inner{max-width:600px;margin-inline:auto;}
 .software-name{
-  margin:0 0 clamp(9px,1.2vw,16px) .06em;
+  position:relative;top:clamp(7px,.72vw,10px);
+  margin:0 0 clamp(3px,.55vw,7px) .06em;
   color:#000;font:600 clamp(10px,.93vw,13px)/1.6 Arial,Helvetica,sans-serif;
   letter-spacing:.25em;text-transform:uppercase;
 }
@@ -73,24 +89,54 @@ main{position:fixed;inset:0;overflow:hidden;isolation:isolate;background:linear-
   letter-spacing:.005em;opacity:1;transition:opacity .7s ease;
 }
 .farewell-line.is-changing{opacity:0;}
+/* Mobile is a single, full-viewport composition: sand + wording together. */
 @media (max-width:900px){
-  /* Portrait screens: keep the full-bleed hourglass first and reveal typography on scroll. */
-  main{overflow-x:hidden;overflow-y:auto;overscroll-behavior-y:contain;}
-  .identity-section{
-    position:relative;left:auto;right:auto;top:auto;transform:none;
-    z-index:5;margin-top:100dvh;padding:clamp(40px,12vw,82px) 7vw 60px;
-    background:#fcfbf9;min-height:63dvh;
-  }
-  .identity-inner{max-width:570px;margin-inline:auto;}
-  .software-name{font-size:11px;margin-bottom:13px;}
-  .primary-wordmark{font-size:clamp(47px,9.8vw,76px);}
-  .service-name{font-size:11px;line-height:1.85;letter-spacing:.16em;margin-top:30px;}
-  .farewell-space{margin-top:39px;min-height:7em;}
-  .farewell-line{font-size:clamp(23px,6vw,30px);}
+  html,body{height:100%;overflow:hidden;}
+  main{position:fixed;inset:0;overflow:hidden;}
+  /* A light, transparent veil makes the writing readable over the glass;
+     it preserves the neck and flowing sand at the left. */
+  main::after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;
+    background:linear-gradient(90deg,
+      rgba(252,251,249,0) 18%,
+      rgba(252,251,249,.12) 34%,
+      rgba(252,251,249,.76) 48%,
+      rgba(252,251,249,.97) 67%,
+      #fcfbf9 100%);}
+  .identity-section{position:absolute;top:51%;left:45%;right:4%;
+    transform:translateY(-50%);z-index:5;margin:0;padding:0;
+    background:transparent;min-height:0;max-height:100%;pointer-events:none;}
+  .identity-inner{max-width:none;margin:0;}
+  .software-name{top:0;font-size:10px;letter-spacing:.18em;
+    margin:0 0 13px .03em;}
+  .primary-wordmark{font-size:clamp(29px,4.7vw,49px);
+    line-height:.98;letter-spacing:-.043em;}
+  .service-name{font-size:10px;line-height:1.55;letter-spacing:.095em;
+    margin-top:23px;}
+  .farewell-space{margin-top:30px;min-height:6.5em;}
+  .farewell-line{font-size:clamp(18px,3.1vw,26px);line-height:1.2;}
 }
-@media (max-width:360px){
- .primary-wordmark{font-size:clamp(40px,11.6vw,50px);}
- .identity-section{padding-inline:6vw;}
+@media(max-width:700px){
+  .identity-section{left:45%;right:4%;top:51%;}
+  .primary-wordmark{font-size:clamp(28px,7.35vw,46px);}
+  .farewell-line{font-size:clamp(18px,4.85vw,25px);}
+}
+@media(max-width:440px){
+  .identity-section{left:44%;right:3.5%;top:51%;}
+  .primary-wordmark{font-size:clamp(28px,7.45vw,36px);}
+  .service-name{font-size:9.5px;letter-spacing:.06em;margin-top:20px;}
+  .farewell-space{margin-top:23px;min-height:7.5em;}
+}
+@media(max-width:360px){
+  .identity-section{left:44%;right:3%;}
+  .primary-wordmark{font-size:clamp(25px,7.2vw,29px);}
+  .service-name{font-size:9px;letter-spacing:.02em;}
+  .farewell-line{font-size:18px;}
+}
+@media(max-height:650px) and (max-width:900px){
+  .identity-section{top:49%;}
+  .software-name{margin-bottom:8px;}
+  .service-name{margin-top:13px;}
+  .farewell-space{margin-top:16px;}
 }
 @media (prefers-reduced-motion:reduce){.farewell-line{transition:none;}}
 .sr-only{position:absolute!important;width:1px!important;height:1px!important;
@@ -258,7 +304,7 @@ requestAnimationFrame(render);
     cancelTimers();
     if (active) displayTimer = setTimeout(advance, index < 2 ? 15000 : 10000);
   }
-  // On mobile, start the first line when readers reach the typography below the glass.
+  // Start the rotation only while the writing is visible on the screen.
   // Pausing in hidden tabs prevents an unseen loop from skipping the opening messages.
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(entries => {
