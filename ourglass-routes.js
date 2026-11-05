@@ -205,7 +205,7 @@
   const panel = overlay.querySelector(".og-panel");
   const contents = overlay.querySelector(".og-body");
   const closeButton = overlay.querySelector(".og-close");
-  const home = '<a class="og-action" href="#/">Back to OUR GLASS</a>';
+  const home = '<a class="og-action" href="#/">Back to The Afterword Concierge</a>';
   let previousOverflow = "";
   let lastTrigger = null;
 
