@@ -1,0 +1,31 @@
+name: Build OUR GLASS social preview
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/ourglass-social-image.yml"
+      - "scripts/build-social-preview.py"
+      - "og-hourglass.jpg"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install Pillow==11.3.0
+      - run: python scripts/build-social-preview.py
+      - name: Commit static preview image
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add og-hourglass-signed.jpg
+          git diff --cached --quiet && exit 0
+          git commit -m "Embed transparent Barb the Builder signature in social preview"
+          git push
