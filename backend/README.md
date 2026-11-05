@@ -19,7 +19,7 @@
 
 ## Review process
 
-Review each uploaded screenshot against the transaction in the actual GCash app before changing `Status` in the private Sheet to `Approved`. The Apps Script upload is only an intake channel. **It does not authenticate accounts, grant access, send invitations, or send death notifications.** Those require separate verified backend workflows before release.
+Review each uploaded screenshot against the actual completed transaction in GCash, including recipient, amount and transaction reference. For a legitimately verified submission, use the Apps Script editor to run `approveDonationRow(rowNumber)` with the exact spreadsheet row number (for example, create a temporary admin-only wrapper calling `approveDonationRow(2)`). **Do not simply change the Sheet status to Approved**, since the verified timestamp is what starts the 21-day preparation countdown. The function marks the row as Approved, records the verification time and attempts to email confirmation. Test this before real use. Once tested, run `installPreparationReminder()` once to create a daily trigger that emails the next-step notice **after approximately 21 days from verification**. Column I records verification, column J records the setup reminder, and column N stores the phone number. Ensure the private Donations sheet has at least 14 columns. The script **does not authenticate users, create accounts, send invitations to recipients, or send death notifications**. Those require separate verified workflows before release.
 
 ## Privacy & security
 
@@ -28,3 +28,13 @@ Review each uploaded screenshot against the transaction in the actual GCash app 
 - The public web app has basic field, image-format, file-size, duplicate-reference, and per-email checks; these are **not** strong bot protection. Monitor abuse and quotas before large-scale use.
 - Treat receipts as personal data. Provide a privacy notice and deletion contact before accepting real payments.
 - Revoke/redeploy the web app if its public endpoint receives abuse.
+
+
+## Three-week preparation policy
+
+- The visitor donates, uploads a screenshot, and submits their name, email and phone number.
+- Submission is **Pending Verification** until the actual payment is matched manually in the real GCash account.
+- The preparation period starts only when the administrator calls `approveDonationRow(rowNumber)` for a genuinely verified payment.
+- The visitor is asked to choose the person authorized to inform OUR GLASS of their death. **Do not collect that person's private details during the donation form**; obtain their permission and collect contact information later during secure setup.
+- Approximately 21 days after approval, an automated email tells the visitor their preparation period is complete. It does not grant access or promise that a usable setup account exists.
+- Configure a monitored sending account, test Workspace email quotas and bounce handling, and review privacy/retention notices before public launch.
