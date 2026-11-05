@@ -244,8 +244,7 @@
       '<label>Donation amount (PHP)<input name="amount" type="number" min="0.01" step="0.01" required></label>' +
       '<label>GCash transaction reference<input name="reference" maxlength="90" required></label>' +
       '<label class="og-consent"><input type="checkbox" name="consent" required> I agree that The Afterword Concierge may use my contact details and payment proof to verify my donation and contact me about my three-week preparation and next steps.</label>' +
-      '<button type="submit" class="og-send-email">Prepare my proof email</button>' +
-      '<p class="og-muted"><strong>Important:</strong> Your email app will open with these details. Attach the screenshot you selected and press Send. Selecting it here does not upload it automatically. We confirm your donation only after checking the actual GCash transaction.</p>' +
+      '<button type="submit" class="og-send-email">Submit</button>' +
       '</form></section>';
   }
 
@@ -351,6 +350,8 @@
       "\\nGCash reference: "+reference+"\\n\\nI consent to manual processing of my details and proof for verification and onboarding correspondence.\\n\\n"+
       "IMPORTANT: I WILL ATTACH MY ACTUAL GCASH PAYMENT SCREENSHOT BEFORE SENDING THIS EMAIL.\\n"+
       "I understand that my three-week preparation begins only after payment verification and confirmation.";
+    const proceed = window.confirm("To finish submitting, your email app will open. Attach the payment screenshot you selected and press Send. Selecting it on this page did not upload it or send your details. Continue to email?");
+    if (!proceed) return;
     window.location.href="mailto:industries@barbph.com?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
   });
   overlay.addEventListener("change", event => {
