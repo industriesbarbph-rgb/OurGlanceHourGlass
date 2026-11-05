@@ -84,9 +84,14 @@
     .og-panel[data-route="prepare"] .og-muted{
       font-size:clamp(13px,1.09vw,14px);line-height:1.55;
     }
-    .og-panel[data-route="prepare"] .og-actions{
-      justify-content:center;margin-top:clamp(18px,2.6vh,26px);
-      gap:clamp(25px,4vw,70px);
+    .og-panel[data-route="prepare"] .og-intro-links{margin-top:clamp(20px,3vh,32px)}
+    .og-panel[data-route="prepare"] .og-intro-links .og-actions{
+      display:flex;flex-direction:column;align-items:flex-start;
+      justify-content:flex-start;gap:7px;margin:0;
+    }
+    .og-panel[data-route="prepare"] .og-intro-links .og-action{
+      min-height:40px;justify-content:flex-start;text-align:left;
+      font-size:clamp(22px,2.25vw,27px);
     }
     @media(max-width:760px){
       .og-panel[data-route="prepare"]{width:100%;padding:27px 23px 30px}
@@ -245,11 +250,12 @@
       '<div class="og-intro-layout"><div class="og-intro-heading">' +
       header("Begin yours", "Your Afterword Account begins here",
         "Your three-week preparation period gives you time to consider your wishes and the people who matter. Personal setup follows donation verification and confirmation.") +
-      '</div><div class="og-intro-card">' +
+      '<div class="og-intro-links">' +
+      actions('<a class="og-action og-action--primary" href="#/donate">Donation &amp; submission</a>',home) +
+      '</div></div><div class="og-intro-card">' +
       '<div class="og-card"><p class="og-steps-title">The journey ahead</p><ol class="og-steps" aria-label="Your five steps"><li><span class="og-step-number">01</span><span>Donate</span></li><li><span class="og-step-number">02</span><span>Submit proof, email and phone number</span></li><li><span class="og-step-number">03</span><span>We verify and confirm</span></li><li><span class="og-step-number">04</span><span>Three-week preparation</span></li><li><span class="og-step-number">05</span><span>Setup invitation</span></li></ol>' +
       '<p class="og-muted og-timeline-details">Once your donation is verified, we will use your email to contact you at the end of the three-week preparation period with the next steps for your private setup. During that time, choose the <strong>official trusted person</strong> who will inform The Afterword Concierge of your death when the time comes. You will provide their details securely during setup; please ask for their consent first.</p></div>' +
-      '</div></div>' +
-      actions('<a class="og-action og-action--primary" href="#/donate">Donation &amp; submission</a>',home),
+      '</div></div>',
     donate: () =>
       header("Begin yours", "Donation & submission",
         "We'll guide you through the details one step at a time.") +
