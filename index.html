@@ -30,7 +30,7 @@
 <link rel="preload" as="image" href="/assets/hourglass-base.jpg" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500;1,600&family=Syncopate:wght@700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;overflow:hidden;background:#fcfbf9}
@@ -151,55 +151,61 @@ main{position:fixed;inset:0;overflow:hidden;isolation:isolate;background:linear-
  padding:0!important;margin:-1px!important;overflow:hidden!important;
  clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important;}
 
-/* Accessible, touch-friendly navigation: no overlap or tiny action pills. */
+/* Three embossed silver-and-black italic links, without button containers. */
 .og-nav{
-  position:fixed;right:clamp(16px,3.5vw,44px);bottom:max(20px,env(safe-area-inset-bottom));
-  z-index:90;display:flex;align-items:center;justify-content:flex-end;
-  gap:10px;max-width:calc(100vw - 32px);
+  position:fixed;right:clamp(18px,3.8vw,56px);
+  bottom:max(22px,env(safe-area-inset-bottom));z-index:90;
+  display:flex;align-items:center;justify-content:flex-end;
+  gap:clamp(18px,2.5vw,39px);max-width:calc(100vw - 32px);
 }
 .og-nav[hidden]{display:none!important}
 .og-nav a{
   display:inline-flex;align-items:center;justify-content:center;
-  box-sizing:border-box;min-height:48px;padding:12px 18px;
-  border:1px solid #b8a994;border-radius:8px;
-  background:rgba(252,251,249,.94);color:#40352b;
-  text-align:center;text-decoration:none;text-transform:uppercase;
-  font:700 11px/1.35 Arial,Helvetica,sans-serif;letter-spacing:.07em;
+  min-height:48px;box-sizing:border-box;
+  border:none!important;box-shadow:none!important;
+  outline-offset:5px;border-radius:0;
+  padding:6px 0;background:transparent!important;
+  background-image:linear-gradient(163deg,
+    #08090b 0%,#5d636b 17%,#d6d9dd 32%,#202327 51%,#8a9098 67%,#111317 89%,#3a3e43 100%)!important;
+  background-clip:text;-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;color:#2a2c31;
+  font:italic 600 clamp(20px,1.65vw,27px)/1.1 'Cormorant Garamond',Georgia,serif;
+  letter-spacing:.008em;text-align:center;text-decoration:none;
+  text-transform:none;
+  text-shadow:0 -1px 0 rgba(255,255,255,.48),
+              0 1px 1px rgba(20,21,24,.24),
+              0 0 7px rgba(173,181,191,.3);
+  filter:drop-shadow(0 0 4px rgba(181,187,199,.54));
   -webkit-tap-highlight-color:transparent;
-  backdrop-filter:blur(8px);
-  transition:background-color .18s ease,border-color .18s ease;
+  transition:filter .18s ease,transform .18s ease;
 }
-.og-nav a:hover{background:#f0e8df;border-color:#977f66}
-.og-nav a:focus-visible{outline:3px solid #977f66;outline-offset:3px}
-.og-nav a.og-nav-primary{background:#40352d;color:#fff;border-color:#40352d}
-.og-nav a.og-nav-primary:hover{background:#685441}
-.og-nav a.og-nav-about{
-  background:rgba(252,251,249,.88);border-color:transparent;
-  text-transform:none;letter-spacing:.04em;padding-inline:12px;
+.og-nav a:hover,.og-nav a:focus-visible{
+  filter:drop-shadow(0 0 8px rgba(157,166,182,.9))
+         drop-shadow(0 1px 1px rgba(24,24,26,.25));
+  transform:translateY(-1px);
 }
+.og-nav a:focus-visible{outline:2px solid #767a82}
 @media(max-width:700px){
   .og-nav{
-    left:12px;right:12px;
-    bottom:max(12px,env(safe-area-inset-bottom));
-    max-width:none;
-    display:grid;
-    grid-template-columns:minmax(0,1fr) minmax(0,1.25fr) auto;
-    gap:7px;
+    right:9px;left:9px;bottom:max(12px,env(safe-area-inset-bottom));
+    max-width:none;gap:5px;display:grid;
+    grid-template-columns:minmax(0,1.1fr) minmax(0,1.65fr) minmax(0,.65fr);
+    align-items:center;
   }
   .og-nav a{
-    min-width:0;min-height:50px;padding:11px 9px;
-    font-size:10px;line-height:1.25;letter-spacing:.035em;
+    min-width:0;min-height:52px;
+    padding:5px 1px;
+    white-space:normal;
+    font-size:clamp(16px,4.5vw,21px);
+    line-height:1.02;letter-spacing:-.015em;
+    overflow-wrap:normal;
   }
-  .og-nav a.og-nav-about{padding-inline:8px;min-width:46px}
 }
-@media(max-width:355px){
-  .og-nav{left:8px;right:8px;gap:5px}
-  .og-nav a{font-size:9px;padding:9px 7px;letter-spacing:.015em}
-  .og-nav a.og-nav-about{min-width:42px}
+@media(max-width:370px){
+  .og-nav{left:6px;right:6px;gap:3px}
+  .og-nav a{font-size:clamp(15px,4.35vw,18px)}
 }
-@media(prefers-reduced-motion:reduce){
-  .og-nav a{transition:none}
-}
+@media(prefers-reduced-motion:reduce){.og-nav a{transition:none}}
 </style>
 </head>
 <body>
@@ -226,8 +232,8 @@ main{position:fixed;inset:0;overflow:hidden;isolation:isolate;background:linear-
 </main>
 <nav class="og-nav" aria-label="OUR GLASS navigation">
   <a href="#/join">Join a circle</a>
-  <a class="og-nav-primary" href="#/prepare">Prepare my afterword</a>
-  <a class="og-nav-about" href="/about.html">About</a>
+  <a href="#/prepare">Prepare my afterword</a>
+  <a href="/about.html">About</a>
 </nav>
 <script>
 (()=>{
