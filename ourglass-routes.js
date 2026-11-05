@@ -27,35 +27,35 @@
     }
     /* Smart Move: keep the complete introduction visible in a balanced two-column panel. */
     .og-panel[data-route="prepare"]{
-      width:min(96vw,960px);
+      width:min(94vw,960px);
       max-height:calc(100dvh - 36px);
-      padding:clamp(24px,3vw,40px);
+      padding:clamp(24px,3vw,38px) clamp(28px,3.6vw,48px);
     }
     .og-panel[data-route="prepare"] .og-intro-layout{
-      display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);
-      gap:clamp(24px,3vw,40px);align-items:center;
+      display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);
+      gap:clamp(28px,4vw,50px);align-items:center;
     }
     .og-panel[data-route="prepare"] .og-intro-heading,
     .og-panel[data-route="prepare"] .og-intro-card{min-width:0}
     .og-panel[data-route="prepare"] .og-title{
-      font-size:clamp(37px,4.4vw,60px);line-height:1.03;
-      margin:0 0 20px;max-width:12em;
+      font-size:clamp(35px,3.15vw,48px);line-height:1.08;
+      margin:0 0 18px;max-width:13em;letter-spacing:-.025em;
     }
     .og-panel[data-route="prepare"] .og-copy{
-      font-size:clamp(14px,1.5vw,17px);line-height:1.62;margin:0;
+      font-size:clamp(14px,1.16vw,16px);line-height:1.55;margin:0;
     }
     .og-panel[data-route="prepare"] .og-card{
-      margin:0;padding:clamp(18px,2vw,26px);background:rgba(255,254,250,.72);
+      margin:0;padding:clamp(17px,1.9vw,24px);background:rgba(255,254,250,.72);
     }
     .og-panel[data-route="prepare"] .og-step{
-      font-size:clamp(12px,1.25vw,14px);line-height:1.7;margin-bottom:15px;
+      font-size:clamp(12px,1vw,13px);line-height:1.55;margin-bottom:13px;
     }
     .og-panel[data-route="prepare"] .og-muted{
-      font-size:clamp(13px,1.32vw,15px);line-height:1.58;
+      font-size:clamp(13px,1.09vw,14px);line-height:1.55;
     }
     .og-panel[data-route="prepare"] .og-actions{
-      justify-content:space-between;margin-top:clamp(12px,2vh,25px);
-      gap:12px 24px;
+      justify-content:center;margin-top:clamp(18px,2.6vh,26px);
+      gap:clamp(25px,4vw,70px);
     }
     @media(max-width:760px){
       .og-panel[data-route="prepare"]{width:100%;padding:27px 23px 30px}
@@ -74,10 +74,10 @@
       .og-panel[data-route="prepare"] .og-actions{margin-top:6px}
     }
     .og-close{
-      position:absolute;right:12px;top:10px;width:44px;height:44px;
-      display:grid;place-items:center;background:transparent;border:0;
+      position:absolute;right:15px;top:14px;width:36px;height:36px;
+      display:grid;place-items:center;background:transparent;border:0;outline:none;
       color:#33353a;cursor:pointer;
-      font:italic 400 31px/1 'Cormorant Garamond',Georgia,serif;
+      font:400 25px/1 Georgia,serif;
       text-shadow:0 1px 0 rgba(255,255,255,.8),0 2px 2px rgba(15,18,20,.3);
     }
     .og-close:hover{filter:drop-shadow(0 0 6px rgba(164,172,186,.8))}
@@ -144,7 +144,7 @@
   const overlay = document.createElement("div");
   overlay.className = "og-backdrop";
   overlay.hidden = true;
-  overlay.innerHTML = '<section class="og-panel" role="dialog" aria-modal="true" aria-labelledby="og-modal-title"><button class="og-close" aria-label="Close and return to OUR GLASS" type="button">×</button><div class="og-body"></div></section>';
+  overlay.innerHTML = '<section class="og-panel" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="og-modal-title"><button class="og-close" aria-label="Close and return to OUR GLASS" type="button">×</button><div class="og-body"></div></section>';
   document.body.appendChild(overlay);
 
   const panel = overlay.querySelector(".og-panel");
@@ -255,7 +255,7 @@
     overlay.hidden = false;
     nav.hidden = true;
     document.body.style.overflow = "hidden";
-    closeButton.focus();
+    panel.focus({preventScroll:true});
   }
   function goHome() {
     if (window.location.hash !== "#/") window.location.hash = "#/";
