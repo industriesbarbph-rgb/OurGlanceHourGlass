@@ -37,13 +37,22 @@
   const body = backdrop.querySelector(".og-body");
   const title = (kicker,name,description)=>'<p class="og-kicker">'+kicker+'</p><h2 class="og-title" id="og-modal-title">'+name+'</h2><p class="og-copy">'+description+'</p>';
   const back = '<a class="og-button" href="#/">Back to OUR GLASS</a>';
+  function paymentFormUrl() {
+    const u = String(window.OURGLASS_PAYMENT_FORM_URL || "");
+    return /^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(u) ? u : "";
+  }
   const pages = {
     join: () => title("Your people","Join someone’s circle","If a loved one invites you to their circle, this is where you will register to receive their future messages. Invitation-based registration will open after our secure delivery system is activated.") +
       '<div class="og-card"><p class="og-muted">Recipient details are private. We will not collect your information until the invitation system is connected.</p></div><div class="og-actions">'+back+'</div>',
     prepare: () => title("Your afterword","Prepare my afterword","Make your arrangements now, for when the time comes. Setup begins only after a donation is confirmed and verified.") +
       '<div class="og-card"><p class="og-step">01 Donate → 02 Upload payment proof → 03 Verification → 04 Confirmation → 05 Setup</p><p class="og-muted">We are finishing the secure screenshot submission and verification connection. Please do not make a donation for setup until the form is active.</p></div><div class="og-actions"><a class="og-button og-primary" href="#/donate">How donations will work</a>'+back+'</div>',
-    donate: () => title("Before we begin","Donation & verification","Our secure donation submission is being connected. When active, you will see our GCash QR code, submit a screenshot of your completed payment, and receive a pending confirmation reference.") +
-      '<div class="og-card"><p class="og-muted"><strong>Payment submissions are not yet open.</strong> Do not transfer money for account setup until the upload form is available. Donation of any amount does not automatically approve an account.</p></div><div class="og-actions"><a class="og-button" href="#/verification">Verification process</a>'+back+'</div>',
+    donate: () => {
+      const url = paymentFormUrl();
+      if (url) return title("Before we begin","Donation & verification","Donate any amount with our GCash QR, then upload a screenshot of your payment. Your request will be verified manually before any setup access is issued.") +
+        '<iframe title="OUR GLASS secure payment proof form" loading="lazy" referrerpolicy="no-referrer" style="width:100%;height:min(72dvh,650px);border:1px solid #d7cbbf;background:#fff" src="'+url+'"></iframe><div class="og-actions">'+back+'</div>';
+      return title("Before we begin","Donation & verification","Our secure donation submission is being connected. When active, you will see our GCash QR code, submit a screenshot of your completed payment, and receive a pending confirmation reference.") +
+        '<div class="og-card"><p class="og-muted"><strong>Payment submissions are not yet open.</strong> Do not transfer money for account setup until the upload form is available. Donation of any amount does not automatically approve an account.</p></div><div class="og-actions"><a class="og-button" href="#/verification">Verification process</a>'+back+'</div>';
+    },
     verification: () => title("Our process","Verification","Your screenshot is reviewed against the actual GCash transaction history. An uploaded image by itself is not proof of a completed payment.") +
       '<div class="og-card"><p class="og-muted">Only confirmed transactions are marked approved. We will never ask for your GCash PIN or one-time password.</p></div><div class="og-actions"><a class="og-button" href="#/pending">After submission</a>'+back+'</div>',
     pending: () => title("Review","Pending confirmation","After you submit proof through the active form, your donation request will wait for manual verification. Do not upload proof through this preview; no submission has been received.") +
