@@ -148,41 +148,6 @@ main{position:fixed;inset:0;overflow:hidden;isolation:isolate;background:linear-
 }
 @media(prefers-reduced-motion:reduce){.identity-section .invite-cta{transition:none}}
 
-/* Personal setup action: fine engraved lettering with no background or pill. */
-.identity-section .own-glass-cta,.identity-section .own-glass-cta:visited{
-  display:inline-flex;align-items:center;gap:.34em;align-self:flex-start;
-  max-width:100%;margin-top:clamp(6px,1vw,13px);padding:6px 1px;min-height:38px;
-  background:none!important;background-image:none!important;
-  border:0!important;border-radius:0!important;box-shadow:none!important;
-  color:#4a4d53!important;-webkit-text-fill-color:#4a4d53!important;
-  font:italic 600 clamp(21px,1.9vw,27px)/1.08 'Cormorant Garamond',Georgia,serif;
-  letter-spacing:-.008em;text-decoration:none;
-  text-shadow:0 1px 0 rgba(255,255,255,.9),0 -1px 1px rgba(76,81,91,.18);
-  pointer-events:auto;white-space:normal;cursor:pointer;
-  -webkit-tap-highlight-color:transparent;transition:color .2s ease,transform .2s ease;
-}
-.identity-section .own-glass-cta span{
-  font:normal 400 .67em/1 Arial,sans-serif;color:#707681;-webkit-text-fill-color:#707681;
-  transform:translateY(-.06em);
-}
-.identity-section .own-glass-cta:hover,.identity-section .own-glass-cta:focus-visible{
-  color:#171b22!important;-webkit-text-fill-color:#171b22!important;transform:translateX(2px);
-}
-.identity-section .own-glass-cta:focus-visible{outline:2px solid #7c8490;outline-offset:3px}
-@media(max-width:900px){
-  .identity-section .own-glass-cta{font-size:clamp(19px,3.2vw,24px);margin-top:5px;min-height:34px}
-}
-@media(max-width:700px){
-  .identity-section .own-glass-cta{font-size:clamp(17px,4.3vw,22px);line-height:1.06;margin-top:3px;min-height:32px}
-}
-@media(max-width:360px){
-  .identity-section .own-glass-cta{font-size:clamp(16px,4.2vw,19px)}
-}
-@media(max-height:650px) and (max-width:900px){
-  .identity-section .own-glass-cta{margin-top:1px;min-height:28px;padding-block:3px;font-size:clamp(16px,3.8vw,20px)}
-}
-@media(prefers-reduced-motion:reduce){.identity-section .own-glass-cta{transition:none}}
-
 /* Mobile is a single, full-viewport composition: sand + wording together. */
 @media (max-width:900px){
   html,body{height:100%;overflow:hidden;}
@@ -298,7 +263,6 @@ main{position:fixed;inset:0;overflow:hidden;isolation:isolate;background:linear-
       <div class="farewell-space">
         <p class="farewell-line" id="farewell-line">This is the goodbye I planned myself.</p>
         <a class="invite-cta" href="/invite.html"><span>Allow me to invite you</span></a>
-        <a class="own-glass-cta" href="#/prepare">Make OUR GLASS Yours <span aria-hidden="true">↗</span></a>
       </div>
     </div>
   </section>
