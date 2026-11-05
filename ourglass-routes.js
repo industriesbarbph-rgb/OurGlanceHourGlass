@@ -73,15 +73,25 @@
       .og-panel[data-route="prepare"] .og-muted{line-height:1.45}
       .og-panel[data-route="prepare"] .og-actions{margin-top:6px}
     }
-    .og-close{
-      position:absolute;right:15px;top:14px;width:36px;height:36px;
-      display:grid;place-items:center;background:transparent;border:0;outline:none;
-      color:#33353a;cursor:pointer;
-      font:400 25px/1 Georgia,serif;
-      text-shadow:0 1px 0 rgba(255,255,255,.8),0 2px 2px rgba(15,18,20,.3);
+    /* A minimal unboxed close control; override browser and page button styles. */
+    .og-panel .og-close,.og-panel .og-close:hover,.og-panel .og-close:active{
+      position:absolute;z-index:3;top:14px;right:16px;
+      display:flex;align-items:center;justify-content:center;
+      width:32px;height:32px;min-width:0;min-height:0;
+      margin:0!important;padding:0!important;
+      border:0!important;border-radius:0!important;
+      outline:0!important;box-shadow:none!important;
+      background:transparent!important;background-image:none!important;
+      -webkit-appearance:none;appearance:none;
+      color:#3e3832!important;-webkit-text-fill-color:#3e3832!important;
+      font:400 25px/1 Arial,Helvetica,sans-serif;
+      text-shadow:none!important;filter:none!important;cursor:pointer;
     }
-    .og-close:hover{filter:drop-shadow(0 0 6px rgba(164,172,186,.8))}
-    .og-close:focus-visible,.og-action:focus-visible{outline:2px solid #777c87;outline-offset:5px}
+    .og-panel .og-close:hover{opacity:.66}
+    .og-panel .og-close:focus-visible{
+      text-decoration:underline;text-underline-offset:4px;
+    }
+    .og-action:focus-visible{outline:2px solid #777c87;outline-offset:5px}
     .og-kicker{margin:0 36px 12px 0;font:700 11px/1.5 Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#92795f}
     .og-title{margin:0 22px 17px 0;font:400 clamp(36px,7vw,54px)/1.05 Georgia,serif;letter-spacing:-.035em}
     .og-copy{margin:0 0 20px;color:#5a5048;font:15px/1.7 Arial,Helvetica,sans-serif}
