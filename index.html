@@ -97,6 +97,40 @@ main{position:fixed;inset:0;overflow:hidden;isolation:isolate;background:linear-
   letter-spacing:.005em;opacity:1;transition:opacity .7s ease;
 }
 .farewell-line.is-changing{opacity:0;}
+
+/* Personal invitation, below the endlessly rotating farewell words; no pill container. */
+.identity-section .invite-cta,.identity-section .invite-cta:visited{
+  display:inline-flex;align-items:center;justify-content:flex-start;position:relative;
+  min-height:47px;margin-top:clamp(10px,1.7vw,22px);
+  padding:3px 1px 8px;pointer-events:auto;
+  border:0!important;border-radius:0!important;box-shadow:none!important;
+  background-color:transparent!important;
+  background-image:linear-gradient(155deg,#101115 0%,#50555c 22%,#bfc4cb 42%,#272b32 58%,#818b97 76%,#101216 99%)!important;
+  background-clip:text;-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;color:#24282e;
+  font:italic 600 clamp(23px,2.5vw,37px)/1.13 'Cormorant Garamond',Georgia,serif;
+  white-space:normal;letter-spacing:-.012em;text-decoration:none;
+  filter:drop-shadow(0 -1px 0 rgba(255,255,255,.75)) drop-shadow(0 1px 1px rgba(26,30,35,.2));
+}
+.identity-section .invite-cta::after{
+  content:"";position:absolute;left:1px;right:6%;bottom:1px;height:1px;
+  background:linear-gradient(90deg,#2d323a 0%,#c1c7d0 48%,#333a43 83%,transparent);
+  opacity:.65;
+}
+.identity-section .invite-cta:hover,.identity-section .invite-cta:focus-visible{
+  filter:drop-shadow(0 0 5px rgba(153,164,180,.62));
+}
+.identity-section .invite-cta:focus-visible{outline:2px solid #737c89;outline-offset:4px}
+@media(max-width:900px){
+  .identity-section .invite-cta{margin-top:6px;font-size:clamp(21px,3vw,28px)}
+}
+@media(max-width:700px){
+  .identity-section .invite-cta{margin-top:3px;font-size:clamp(19px,5vw,25px);line-height:1.06}
+}
+@media(max-height:650px) and (max-width:900px){
+  .identity-section .invite-cta{margin-top:0;font-size:clamp(18px,4.2vw,22px)}
+}
+
 /* Mobile is a single, full-viewport composition: sand + wording together. */
 @media (max-width:900px){
   html,body{height:100%;overflow:hidden;}
@@ -239,6 +273,7 @@ main{position:fixed;inset:0;overflow:hidden;isolation:isolate;background:linear-
       <div class="farewell-space">
         <p class="farewell-line" id="farewell-line">This is the goodbye I planned myself.</p>
       </div>
+      <a class="invite-cta" href="/invite.html">Allow me to invite you</a>
     </div>
   </section>
 </main>
