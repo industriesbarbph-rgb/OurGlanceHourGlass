@@ -12,9 +12,10 @@
    - `OURGLASS_PROOFS_ID`
    - `OURGLASS_QR_FILE_ID`
 5. Deploy → New deployment → Web app. Choose **Execute as: Me** and **Who has access: Anyone** (needed for people without a Google account). Review Google's permissions carefully and authorize the project.
-6. Copy the deployed **/exec** web-app URL. Test this URL directly on a phone. Confirm the GCash QR opens in the GCash app, image submission receives an **OG-...** reference, the proof appears in the private folder and the new spreadsheet row says **Pending Verification**.
-7. Submit the same reference again and verify it is rejected. Confirm the public cannot view the Sheet, proof folder, or files.
-8. Set `window.OURGLASS_PAYMENT_FORM_URL` in the public [ourglass-config.js](../ourglass-config.js) to the deployed /exec URL. That change activates the real form in the **Donation & verification** route. Until then, the site intentionally refuses donations for setup.
+6. On the phone, check that the QR is large, sharp, and has an unbroken white margin. Test **Save QR image** and use GCash → QR → Upload QR on that same phone, or scan the QR from a second phone. Verify the recipient displayed in GCash is the intended account **without sending payment**. The QR asset is copied from the private source, never regenerated, stylized, overlaid, or cropped.
+7. Copy the deployed **/exec** web-app URL. Test this URL directly on a phone. Confirm the GCash QR opens in the GCash app, image submission receives an **OG-...** reference, the proof appears in the private folder and the new spreadsheet row says **Pending Verification**.
+8. Submit the same reference again and verify it is rejected. Confirm the public cannot view the Sheet, proof folder, or files.
+9. Set `window.OURGLASS_PAYMENT_FORM_URL` in the public [ourglass-config.js](../ourglass-config.js) to the deployed /exec URL. That change activates the real form in the **Donation & verification** route. Until then, the site intentionally refuses donations for setup.
 
 ## Review process
 
