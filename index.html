@@ -83,17 +83,20 @@ main{position:fixed;inset:0;overflow:hidden;isolation:isolate;background:linear-
 .cross-letter::before{width:.043em;height:.76em;top:0;left:calc(50% - .0215em);}
 .cross-letter::after{width:.34em;height:.043em;top:.255em;left:calc(50% - .17em);}
 .service-name{
-  margin:clamp(20px,3.6vw,42px) 0 0;
+  margin:clamp(6px,.8vw,12px) 0 0;
   color:#816F5C;font:500 clamp(10px,.91vw,12px)/1.9 Arial,Helvetica,sans-serif;
   letter-spacing:.24em;text-transform:uppercase;
 }
 .farewell-space{
-  min-height:4.5em;margin-top:clamp(26px,4.5vw,55px);
-  display:flex;flex-direction:column;align-items:flex-start;
+  width:min(100%,444px);min-height:0;margin-top:clamp(16px,2.3vw,28px);
+  display:flex;flex-direction:column;align-items:stretch;
 }
 .farewell-line{
+  display:flex;align-items:center;justify-content:center;
+  width:100%;min-height:2.5em;
   margin:0;color:#000;font-family:'Cormorant Garamond',Georgia,serif;
-  font-weight:400;font-size:clamp(23px,2.1vw,33px);line-height:1.35;
+  font-weight:400;font-size:clamp(23px,2.1vw,33px);line-height:1.23;
+  text-align:center;
   letter-spacing:.005em;opacity:1;transition:opacity .7s ease;
 }
 .farewell-line.is-changing{opacity:0;}
@@ -178,7 +181,7 @@ main{position:fixed;inset:0;overflow:hidden;isolation:isolate;background:linear-
       rgba(252,251,249,.76) 48%,
       rgba(252,251,249,.97) 67%,
       #fcfbf9 100%);}
-  .identity-section{position:absolute;top:51%;left:45%;right:4%;
+  .identity-section{position:absolute;top:46.5%;left:45%;right:4%;
     transform:translateY(-50%);z-index:5;margin:0;padding:0;
     background:transparent;min-height:0;max-height:100%;pointer-events:none;}
   .identity-inner{max-width:none;margin:0;}
@@ -186,21 +189,21 @@ main{position:fixed;inset:0;overflow:hidden;isolation:isolate;background:linear-
     margin:0 0 13px .03em;}
   .primary-wordmark{font-size:clamp(29px,4.7vw,49px);
     line-height:.98;letter-spacing:-.043em;}
-  .service-name{font-size:10px;line-height:1.55;letter-spacing:.095em;
-    margin-top:23px;}
-  .farewell-space{margin-top:30px;min-height:6.5em;}
+  .service-name{font-size:10px;line-height:1.4;letter-spacing:.095em;
+    margin-top:6px;}
+  .farewell-space{margin-top:18px;min-height:0;}
   .farewell-line{font-size:clamp(18px,3.1vw,26px);line-height:1.2;}
 }
 @media(max-width:700px){
-  .identity-section{left:45%;right:4%;top:51%;}
+  .identity-section{left:45%;right:4%;top:46.5%;}
   .primary-wordmark{font-size:clamp(28px,7.35vw,46px);}
   .farewell-line{font-size:clamp(18px,4.85vw,25px);}
 }
 @media(max-width:440px){
-  .identity-section{left:44%;right:3.5%;top:51%;}
+  .identity-section{left:44%;right:3.5%;top:46.5%;}
   .primary-wordmark{font-size:clamp(28px,7.45vw,36px);}
-  .service-name{font-size:9.5px;letter-spacing:.06em;margin-top:20px;}
-  .farewell-space{margin-top:23px;min-height:7.5em;}
+  .service-name{font-size:9.5px;letter-spacing:.06em;margin-top:6px;}
+  .farewell-space{margin-top:15px;min-height:0;}
 }
 @media(max-width:360px){
   .identity-section{left:44%;right:3%;}
@@ -209,10 +212,10 @@ main{position:fixed;inset:0;overflow:hidden;isolation:isolate;background:linear-
   .farewell-line{font-size:18px;}
 }
 @media(max-height:650px) and (max-width:900px){
-  .identity-section{top:49%;}
+  .identity-section{top:45.5%;}
   .software-name{margin-bottom:8px;}
-  .service-name{margin-top:13px;}
-  .farewell-space{margin-top:16px;}
+  .service-name{margin-top:5px;}
+  .farewell-space{margin-top:10px;}
 }
 @media (prefers-reduced-motion:reduce){.farewell-line{transition:none;}}
 .sr-only{position:absolute!important;width:1px!important;height:1px!important;
