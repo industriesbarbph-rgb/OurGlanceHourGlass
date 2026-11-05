@@ -26,13 +26,14 @@
       box-shadow:0 25px 90px rgba(25,18,11,.25);
     }
     .og-close{
-      position:absolute;right:12px;top:10px;
-      width:44px;height:44px;display:grid;place-items:center;
-      border:0;background:transparent;color:#44372d;border-radius:50%;
-      font:29px/1 Arial,Helvetica,sans-serif;cursor:pointer;
+      position:absolute;right:12px;top:10px;width:44px;height:44px;
+      display:grid;place-items:center;background:transparent;border:0;
+      color:#33353a;cursor:pointer;
+      font:italic 400 31px/1 'Cormorant Garamond',Georgia,serif;
+      text-shadow:0 1px 0 rgba(255,255,255,.8),0 2px 2px rgba(15,18,20,.3);
     }
-    .og-close:hover{background:#eee9e3}
-    .og-close:focus-visible,.og-action:focus-visible{outline:3px solid #97785d;outline-offset:3px}
+    .og-close:hover{filter:drop-shadow(0 0 6px rgba(164,172,186,.8))}
+    .og-close:focus-visible,.og-action:focus-visible{outline:2px solid #777c87;outline-offset:5px}
     .og-kicker{margin:0 36px 12px 0;font:700 11px/1.5 Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#92795f}
     .og-title{margin:0 22px 17px 0;font:400 clamp(36px,7vw,54px)/1.05 Georgia,serif;letter-spacing:-.035em}
     .og-copy{margin:0 0 20px;color:#5a5048;font:15px/1.7 Arial,Helvetica,sans-serif}
@@ -40,18 +41,28 @@
     .og-muted{margin:0;color:#655b51;font:14px/1.65 Arial,sans-serif}
     .og-muted strong{color:#332b24}
     .og-step{margin:0 0 15px;color:#8a704f;font:700 12px/1.9 Arial,sans-serif}
-    .og-actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:25px}
-    .og-action{
+    .og-actions{display:flex;align-items:center;flex-wrap:wrap;gap:12px 30px;margin-top:25px}
+    .og-action,.og-action--primary{
       display:inline-flex;align-items:center;justify-content:center;
-      min-height:47px;padding:12px 19px;
-      border-radius:8px;border:1px solid #b7a895;
-      font:700 11px/1.4 Arial,sans-serif;text-decoration:none;
-      text-transform:uppercase;letter-spacing:.06em;text-align:center;
-      color:#44372d;background:#fffefa;cursor:pointer;
+      min-height:48px;padding:5px 0;
+      border:0!important;border-radius:0!important;box-shadow:none!important;
+      background-color:transparent!important;
+      background-image:linear-gradient(166deg,
+        #0b0c0e,#6f757d 22%,#d9dcdf 34%,#292b2e 51%,#888d94 69%,#101113 88%)!important;
+      background-clip:text;-webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;color:#282a2f!important;
+      font:italic 600 clamp(21px,3vw,26px)/1.1 'Cormorant Garamond',Georgia,serif;
+      text-decoration:none;text-transform:none;letter-spacing:.002em;
+      text-align:center;cursor:pointer;
+      text-shadow:0 -1px 0 rgba(255,255,255,.42),0 1px 1px rgba(20,21,24,.22),
+                  0 0 7px rgba(179,187,196,.28);
+      filter:drop-shadow(0 0 4px rgba(175,184,196,.45));
+      transition:filter .18s ease,transform .18s ease;
     }
-    .og-action:hover{background:#f2ebe2}
-    .og-action--primary{background:#40352d;color:#fff;border-color:#40352d}
-    .og-action--primary:hover{background:#655342}
+    .og-action:hover,.og-action--primary:hover{
+      filter:drop-shadow(0 0 8px rgba(156,164,180,.9));
+      transform:translateY(-1px);
+    }
     .og-iframe{display:block;width:100%;height:min(65dvh,610px);border:1px solid #dfd5c9;border-radius:8px;background:white}
     @media(max-width:700px){
       .og-backdrop{padding:0;align-items:flex-end}
@@ -59,7 +70,7 @@
         width:100%;max-height:92dvh;border-radius:20px 20px 0 0;
         padding:30px 22px max(26px,env(safe-area-inset-bottom));
       }
-      .og-actions{flex-direction:column}
+      .og-actions{flex-direction:column;align-items:stretch}
       .og-action{width:100%}
       .og-title{font-size:clamp(34px,8vw,48px)}
     }
