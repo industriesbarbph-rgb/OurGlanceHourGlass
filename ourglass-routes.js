@@ -262,7 +262,7 @@
       actions('<a class="og-action og-action--primary" href="#/donate">Donation &amp; submission</a>',home) +
       '</div></div><div class="og-intro-card">' +
       '<div class="og-card"><p class="og-steps-title">The journey ahead</p><ol class="og-steps" aria-label="Your five steps"><li><span class="og-step-number">01</span><span>Donate</span></li><li><span class="og-step-number">02</span><span>Submit proof, email and phone number</span></li><li><span class="og-step-number">03</span><span>We verify and confirm</span></li><li><span class="og-step-number">04</span><span>Three-week preparation</span></li><li><span class="og-step-number">05</span><span>Setup invitation</span></li></ol>' +
-      '<p class="og-muted og-timeline-details">Once your donation is verified, we will use your email to contact you at the end of the three-week preparation period with the next steps for your private setup. During that time, choose the <strong>official trusted person</strong> who will inform The Afterword Concierge of your death when the time comes. You will provide their details securely during setup; please ask for their consent first.</p></div>' +
+      '<p class="og-muted og-timeline-details">Once your donation is verified, we will use your email to contact you at the end of the three-week preparation period with the next steps for your private setup. During that time, choose the <strong>official trusted person</strong> who will inform The Afterword Concierge of your death when the time comes. You will provide their details securely during setup.</p></div>' +
       '</div></div>',
     donate: () =>
       header("Begin yours", "Donation & submission",
