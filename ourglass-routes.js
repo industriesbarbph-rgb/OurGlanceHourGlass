@@ -47,17 +47,39 @@
     .og-panel[data-route="prepare"] .og-card{
       margin:0;padding:clamp(17px,1.9vw,24px);background:rgba(255,254,250,.72);
     }
+    /* Ordered timeline: visible stages, not a paragraph of labels. */
+    .og-panel[data-route="prepare"] .og-steps-title{
+      margin:0 0 15px;color:#94765b;
+      font:700 10px/1.3 Arial,Helvetica,sans-serif;
+      letter-spacing:.2em;text-transform:uppercase;
+    }
     .og-panel[data-route="prepare"] .og-steps{
-      list-style:none;margin:0 0 17px;padding:0;
-      display:grid;grid-template-columns:minmax(0,1fr);row-gap:5px;
-      color:#8a704f;font:700 clamp(12px,1vw,13px)/1.45 Arial,Helvetica,sans-serif;
+      list-style:none;margin:0;padding:0;
+      display:grid;grid-template-columns:1fr;gap:0;
+      counter-reset:ogstage;
     }
     .og-panel[data-route="prepare"] .og-steps li{
-      display:grid;grid-template-columns:29px minmax(0,1fr);
-      align-items:baseline;column-gap:10px;
+      position:relative;display:grid;
+      grid-template-columns:29px minmax(0,1fr);
+      gap:13px;align-items:center;
+      min-height:43px;padding:3px 0;
+      color:#39332e;font:500 13px/1.35 Arial,Helvetica,sans-serif;
+    }
+    .og-panel[data-route="prepare"] .og-steps li:not(:last-child)::after{
+      content:"";position:absolute;left:14px;top:34px;bottom:-8px;
+      width:1px;background:#ded3c5;pointer-events:none;
     }
     .og-panel[data-route="prepare"] .og-step-number{
-      color:#a28b73;font-variant-numeric:tabular-nums;letter-spacing:.045em;
+      position:relative;z-index:1;
+      display:grid;place-items:center;width:29px;height:29px;
+      border:1px solid #d4c3b0;border-radius:50%;
+      color:#826a52;background:#fcfbf9;
+      font:600 10px/1 Arial,Helvetica,sans-serif;
+      font-variant-numeric:tabular-nums;letter-spacing:0;
+    }
+    .og-panel[data-route="prepare"] .og-timeline-details{
+      margin-top:16px;padding-top:15px;
+      border-top:1px solid #e5ddd3;
     }
     .og-panel[data-route="prepare"] .og-muted{
       font-size:clamp(13px,1.09vw,14px);line-height:1.55;
@@ -78,7 +100,7 @@
       .og-panel[data-route="prepare"]{padding:18px 28px}
       .og-panel[data-route="prepare"] .og-title{font-size:clamp(34px,3.7vw,46px);margin-bottom:10px}
       .og-panel[data-route="prepare"] .og-card{padding:15px}
-      .og-panel[data-route="prepare"] .og-steps{row-gap:2px;margin-bottom:10px}
+      .og-panel[data-route="prepare"] .og-steps li{min-height:35px;padding:1px 0}.og-panel[data-route="prepare"] .og-steps li:not(:last-child)::after{top:29px;bottom:-5px}.og-panel[data-route="prepare"] .og-timeline-details{margin-top:9px;padding-top:9px}
       .og-panel[data-route="prepare"] .og-muted{line-height:1.45}
       .og-panel[data-route="prepare"] .og-actions{margin-top:6px}
     }
@@ -224,8 +246,8 @@
       header("Begin yours", "Your Afterword Account begins here",
         "Your three-week preparation period gives you time to consider your wishes and the people who matter. Personal setup follows donation verification and confirmation.") +
       '</div><div class="og-intro-card">' +
-      '<div class="og-card"><ol class="og-steps" aria-label="Your five steps"><li><span class="og-step-number">01</span><span>Donate</span></li><li><span class="og-step-number">02</span><span>Submit proof, email and phone number</span></li><li><span class="og-step-number">03</span><span>We verify and confirm</span></li><li><span class="og-step-number">04</span><span>Three-week preparation</span></li><li><span class="og-step-number">05</span><span>Setup invitation</span></li></ol>' +
-      '<p class="og-muted">Once your donation is verified, we will use your email to contact you at the end of the three-week preparation period with the next steps for your private setup. During that time, choose the <strong>official trusted person</strong> who will inform The Afterword Concierge of your death when the time comes. You will provide their details securely during setup; please ask for their consent first.</p></div>' +
+      '<div class="og-card"><p class="og-steps-title">The journey ahead</p><ol class="og-steps" aria-label="Your five steps"><li><span class="og-step-number">01</span><span>Donate</span></li><li><span class="og-step-number">02</span><span>Submit proof, email and phone number</span></li><li><span class="og-step-number">03</span><span>We verify and confirm</span></li><li><span class="og-step-number">04</span><span>Three-week preparation</span></li><li><span class="og-step-number">05</span><span>Setup invitation</span></li></ol>' +
+      '<p class="og-muted og-timeline-details">Once your donation is verified, we will use your email to contact you at the end of the three-week preparation period with the next steps for your private setup. During that time, choose the <strong>official trusted person</strong> who will inform The Afterword Concierge of your death when the time comes. You will provide their details securely during setup; please ask for their consent first.</p></div>' +
       '</div></div>' +
       actions('<a class="og-action og-action--primary" href="#/donate">Donation &amp; submission</a>',home),
     donate: () =>
