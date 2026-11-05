@@ -220,6 +220,9 @@
     return /^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(url) ? url : "";
   }
   function donationContent() {
+    if (!paymentFormUrl()) {
+      return '<div class="og-card"><p class="og-muted"><strong>Secure donation submissions are temporarily unavailable.</strong> Please do not make a payment until our proof-upload system is working. We cannot receive or verify a payment screenshot through this page right now.</p></div>';
+    }
     const url=paymentFormUrl();
     if(url) return '<div class="og-card"><p class="og-muted">Complete the donation and proof submission in the secure form below. Payment verification is required before confirmation.</p></div>' +
       '<iframe class="og-iframe" title="OUR GLASS donation proof and contact submission" referrerpolicy="no-referrer" src="'+url+'"></iframe>';
