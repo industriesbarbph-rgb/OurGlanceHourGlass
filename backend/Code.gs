@@ -10,9 +10,17 @@
  */
 const OG = { sheetName:'Donations', maxBytes:4*1024*1024, maxSubmissionsPerDay:3 };
 function doGet() {
-  const t=HtmlService.createTemplateFromFile('Upload');
   const qrId=PropertiesService.getScriptProperties().getProperty('OURGLASS_QR_FILE_ID');
-  t.qrDataUrl=qrId?'data:image/png;base64,'+Utilities.base64Encode(DriveApp.getFileById(qrId).getBlob().getBytes()):'';
+  if(!qrId) {
+    return HtmlService.createHtmlOutput('<main style="font:16px/1.6 Arial;padding:30px;max-width:480px;margin:auto"><h1>OUR GLASS</h1><p>The GCash QR code is not configured. Please do not send donations for account setup yet.</p></main>')
+      .setTitle('OUR GLASS — Payment QR Unavailable');
+  }
+  const bytes=DriveApp.getFileById(qrId).getBlob().getBytes();
+  const png=bytes.length>8 && [137,80,78,71,13,10,26,10].every((v,i)=>(bytes[i]&255)===v);
+  if(!png) throw new Error('The configured payment QR image must be a PNG.');
+  const t=HtmlService.createTemplateFromFile('Upload');
+  // Trusted pixel-exact image from the private owner-controlled file.
+  t.qrDataUrl='data:image/png;base64,'+Utilities.base64Encode(bytes);
   return t.evaluate().setTitle('OUR GLASS — Payment Proof')
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
