@@ -98,55 +98,72 @@ main{position:fixed;inset:0;overflow:hidden;isolation:isolate;background:linear-
 }
 .farewell-line.is-changing{opacity:0;}
 
-/* A small, softly beveled silver invitation immediately beneath the rotating words. */
-.identity-section .invite-cta,.identity-section .invite-cta:visited{
-  display:inline-flex;align-items:center;justify-content:center;align-self:flex-start;
-  box-sizing:border-box;max-width:100%;min-height:46px;
-  margin-top:clamp(6px,.65vw,10px);padding:9px 16px 10px;
-  border:1px solid rgba(112,119,130,.58);border-radius:999px;
+/* Three matching, geometrically square silver buttons under the farewell line.
+   The original invitation pill's silver gradient, bevel, and engraved text are preserved. */
+.identity-section .og-nav{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  align-items:stretch;
+  gap:clamp(5px,.8vw,12px);
+  width:min(100%,444px);
+  margin-top:clamp(8px,1.05vw,14px);
+  pointer-events:auto;
+}
+.identity-section .og-nav[hidden]{display:none!important}
+.identity-section .og-nav a,
+.identity-section .og-nav a:visited{
+  display:flex;align-items:center;justify-content:center;
+  box-sizing:border-box;aspect-ratio:1 / 1;
+  width:100%;min-width:0;
+  margin:0;padding:clamp(3px,.65vw,9px);
+  border:1px solid rgba(112,119,130,.58);
+  border-radius:7px;
   background:linear-gradient(155deg,
     rgba(255,255,255,.98) 0%,rgba(207,213,223,.88) 30%,
     rgba(250,250,251,.98) 53%,rgba(180,188,198,.75) 100%);
   box-shadow:inset 0 1px 1px rgba(255,255,255,.99),
              inset 0 -1px 1px rgba(42,47,54,.16),
              0 2px 5px rgba(39,44,52,.16),0 0 10px rgba(185,192,203,.22);
-  text-decoration:none;pointer-events:auto;
+  cursor:pointer;text-align:center;text-decoration:none;
   -webkit-tap-highlight-color:transparent;
   transition:box-shadow .2s ease,transform .2s ease;
 }
-.identity-section .invite-cta span{
-  display:inline-block;font:italic 600 clamp(21px,2.1vw,28px)/1.08 'Cormorant Garamond',Georgia,serif;
-  letter-spacing:-.017em;text-align:center;
+.identity-section .og-nav a span{
+  display:block;width:100%;
+  font:italic 600 clamp(11px,1.55vw,19px)/1.08 'Cormorant Garamond',Georgia,serif;
+  letter-spacing:-.02em;text-transform:uppercase;
   color:#20242a;
   background-image:linear-gradient(155deg,#101216 5%,#59616c 25%,#b3bbc5 44%,#262b32 60%,#4b535f 77%,#111418 96%);
   -webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;
   filter:drop-shadow(0 1px 0 rgba(255,255,255,.5));
 }
-.identity-section .invite-cta:hover,.identity-section .invite-cta:focus-visible{
+.identity-section .og-nav a:hover,
+.identity-section .og-nav a:focus-visible{
   box-shadow:inset 0 1px 1px rgba(255,255,255,1),
              inset 0 -1px 2px rgba(39,43,51,.17),
              0 3px 8px rgba(36,40,47,.2),0 0 13px rgba(157,166,180,.4);
   transform:translateY(-1px);
 }
-.identity-section .invite-cta:focus-visible{outline:2px solid #7c8490;outline-offset:4px}
+.identity-section .og-nav a:focus-visible{outline:2px solid #7c8490;outline-offset:3px}
 @media(max-width:900px){
-  .identity-section .invite-cta{margin-top:7px;min-height:43px;padding:8px 13px 9px}
-  .identity-section .invite-cta span{font-size:clamp(19px,3vw,24px)}
+  .identity-section .og-nav{gap:clamp(5px,.9vw,8px);margin-top:8px}
+  .identity-section .og-nav a span{font-size:clamp(11px,2.1vw,16px)}
 }
 @media(max-width:700px){
-  .identity-section .invite-cta{margin-top:5px;padding:8px 12px 9px;min-height:42px}
-  .identity-section .invite-cta span{font-size:clamp(18px,4.35vw,22px);line-height:1.07}
+  .identity-section .og-nav{gap:5px;margin-top:7px}
+  .identity-section .og-nav a{padding:3px;border-radius:6px}
+  .identity-section .og-nav a span{font-size:clamp(10px,2.85vw,15px);line-height:1.05;letter-spacing:-.025em}
 }
 @media(max-width:360px){
-  .identity-section .invite-cta{padding:7px 10px 8px}
-  .identity-section .invite-cta span{font-size:clamp(17px,4.6vw,19px)}
+  .identity-section .og-nav{gap:4px}
+  .identity-section .og-nav a{padding:2px;border-radius:5px}
+  .identity-section .og-nav a span{font-size:clamp(9.5px,2.75vw,11px)}
 }
 @media(max-height:650px) and (max-width:900px){
-  .identity-section .invite-cta{margin-top:4px;min-height:38px;padding:6px 10px 7px}
-  .identity-section .invite-cta span{font-size:clamp(17px,3.8vw,20px)}
+  .identity-section .og-nav{margin-top:4px}
 }
-@media(prefers-reduced-motion:reduce){.identity-section .invite-cta{transition:none}}
+@media(prefers-reduced-motion:reduce){.identity-section .og-nav a{transition:none}}
 
 /* Mobile is a single, full-viewport composition: sand + wording together. */
 @media (max-width:900px){
@@ -202,46 +219,6 @@ main{position:fixed;inset:0;overflow:hidden;isolation:isolate;background:linear-
  padding:0!important;margin:-1px!important;overflow:hidden!important;
  clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important;}
 
-/* A single unobtrusive About link. No bottom-left CTA or gradient surface. */
-.og-nav{
-  position:fixed;
-  z-index:90;
-  right:clamp(18px,4vw,50px);
-  bottom:max(20px,env(safe-area-inset-bottom));
-  display:block;
-}
-.og-nav[hidden]{display:none!important}
-.og-nav .og-about,.og-nav .og-about:visited{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:44px;
-  min-width:48px;
-  padding:7px 3px;
-  border:none;
-  border-radius:0;
-  background:none;
-  background-image:none;
-  box-shadow:none;
-  text-decoration:none;
-  text-transform:none;
-  color:#5f5d5f;
-  -webkit-text-fill-color:#5f5d5f;
-  font:italic 500 clamp(18px,1.45vw,21px)/1.2 'Cormorant Garamond',Georgia,serif;
-  letter-spacing:.005em;
-  -webkit-tap-highlight-color:transparent;
-}
-.og-nav .og-about:hover,.og-nav .og-about:focus-visible{
-  color:#272a30;
-  -webkit-text-fill-color:#272a30;
-  text-decoration:underline;
-  text-underline-offset:4px;
-}
-.og-nav .og-about:focus-visible{outline:2px solid #78818c;outline-offset:3px}
-@media(max-width:700px){
-  .og-nav{right:clamp(15px,4vw,24px);bottom:max(12px,env(safe-area-inset-bottom))}
-  .og-nav .og-about,.og-nav .og-about:visited{font-size:19px;min-height:46px}
-}
 </style>
 </head>
 <body>
@@ -262,14 +239,15 @@ main{position:fixed;inset:0;overflow:hidden;isolation:isolate;background:linear-
       <p class="service-name">Death Notification &amp; Beyond</p>
       <div class="farewell-space">
         <p class="farewell-line" id="farewell-line">This is the goodbye I planned myself.</p>
-        <a class="invite-cta" href="/invite.html"><span>Allow me to invite you</span></a>
+        <nav class="og-nav" aria-label="OUR GLASS services">
+          <a href="/invite.html" aria-label="Allow me to invite you"><span>Allow me<br>to invite<br>you</span></a>
+          <a href="#/prepare" aria-label="Make OUR GLASS Yours"><span>Make OUR<br>GLASS<br>Yours</span></a>
+          <a href="/about.html" aria-label="About The Afterword Concierge"><span>About</span></a>
+        </nav>
       </div>
     </div>
   </section>
 </main>
-<nav class="og-nav" aria-label="OUR GLASS navigation">
-  <a class="og-about" href="/about.html">About</a>
-</nav>
 <script>
 (()=>{
 'use strict';
