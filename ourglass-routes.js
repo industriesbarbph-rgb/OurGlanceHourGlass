@@ -84,7 +84,7 @@
     .og-panel[data-route="prepare"] .og-muted{
       font-size:clamp(13px,1.09vw,14px);line-height:1.55;
     }
-    .og-panel[data-route="prepare"] .og-intro-links{margin-top:clamp(58px,8vh,84px)}
+    .og-panel[data-route="prepare"] .og-intro-links{margin-top:clamp(82px,11vh,118px)}
     .og-panel[data-route="prepare"] .og-intro-links .og-actions{
       display:flex;flex-direction:column;align-items:flex-start;
       justify-content:flex-start;gap:7px;margin:0;
