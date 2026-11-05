@@ -8,7 +8,7 @@
     .og-link,.og-button{font:600 11px/1.3 Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border:1px solid #b5a99b;border-radius:99px;padding:13px 16px;background:#fcfbf9f0;color:#35302b;text-decoration:none;backdrop-filter:blur(12px)}
     .og-button:focus-visible,.og-link:focus-visible{outline:3px solid #8a6b4d;outline-offset:3px}
     .og-link:hover,.og-button:hover{background:#ede6dc}
-    .og-backdrop{position:fixed;inset:0;z-index:100;background:rgba(34,29,25,.57);display:grid;place-items:center;padding:20px;overflow-y:auto}
+    .og-backdrop[hidden]{display:none!important}\n    .og-backdrop{position:fixed;inset:0;z-index:100;background:rgba(34,29,25,.57);display:grid;place-items:center;padding:20px;overflow-y:auto}
     .og-panel{position:relative;background:#fcfbf9;color:#282522;width:min(100%,570px);max-height:min(92dvh,880px);overflow-y:auto;border-radius:5px;padding:clamp(26px,6vw,52px);box-shadow:0 20px 90px #18110a4b}
     .og-close{position:absolute;right:16px;top:12px;background:transparent;border:none;color:#302820;font:32px/1 Arial;cursor:pointer}
     .og-kicker{font:600 11px Arial,sans-serif;letter-spacing:.24em;color:#937962;text-transform:uppercase;margin:0 0 14px}
