@@ -120,7 +120,7 @@
         "Your three-week preparation period gives you time to consider your wishes and the people who matter. Personal setup follows donation verification and confirmation.") +
       '<div class="og-card"><p class="og-step">01 Donate · 02 Submit proof, email and phone number · 03 We verify and confirm · 04 Three-week preparation · 05 Setup invitation</p>' +
       '<p class="og-muted">Once your donation is verified, we will use your email to contact you at the end of the three-week preparation period with the next steps for your private setup. During that time, choose the <strong>official trusted person</strong> who will inform The Afterword Concierge of your death when the time comes. You will provide their details securely during setup; please ask for their consent first.</p></div>' +
-      '<div class="og-card"><p class="og-muted"><strong>Before donating:</strong> You will need your payment proof, email address and phone number. Your proof will be reviewed against the actual transaction. Registration and notifications are not yet active.</p></div>' +
+      '<div class="og-card"><p class="og-muted"><strong>After donating:</strong> Keep your GCash transaction reference and payment receipt. Submit them with your email address and phone number so we can verify your donation. Personal setup and death notifications will become available in a later stage.</p></div>' +
       actions('<a class="og-action og-action--primary" href="#/donate">Donation & submission</a>',home),
     donate: () => {
       const url = paymentFormUrl();
