@@ -4,13 +4,16 @@
  * paste Code.gs and Upload.html, then configure project Script Properties:
  *   OURGLASS_SHEET_ID   = ID of private Donations spreadsheet
  *   OURGLASS_PROOFS_ID  = ID of private Payment Proofs folder
+ *   OURGLASS_QR_FILE_ID = ID of approved QR image in Drive
  * Deploy as Web app: execute as owner; access anyone.
  * Do NOT store private IDs in the public GitHub repository.
  */
 const OG = { sheetName:'Donations', maxBytes:4*1024*1024, maxSubmissionsPerDay:3 };
 function doGet() {
-  return HtmlService.createHtmlOutputFromFile('Upload')
-    .setTitle('OUR GLASS — Payment Proof')
+  const t=HtmlService.createTemplateFromFile('Upload');
+  const qrId=PropertiesService.getScriptProperties().getProperty('OURGLASS_QR_FILE_ID');
+  t.qrDataUrl=qrId?'data:image/png;base64,'+Utilities.base64Encode(DriveApp.getFileById(qrId).getBlob().getBytes()):'';
+  return t.evaluate().setTitle('OUR GLASS — Payment Proof')
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
 function clean_(v, max){
