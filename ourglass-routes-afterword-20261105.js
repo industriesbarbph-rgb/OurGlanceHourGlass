@@ -300,60 +300,6 @@
     else close();
   }
 
-  overlay.addEventListener("submit", event => {
-    if (!event.target) return;
-    if (event.target.id === "og-name-gate") {
-      event.preventDefault();
-      const gate=event.target;
-      if(!gate.reportValidity())return;
-      const name=gate.elements.guestName.value.trim();
-      if(name.length < 2)return;
-      document.getElementById("og-donor-name").value=name;
-      document.getElementById("og-guest-greeting").textContent=name;
-      gate.hidden=true;
-      const stage=document.getElementById("og-qr-stage");
-      stage.hidden=false;
-      stage.scrollIntoView({block:"start",behavior:"smooth"});
-      return;
-    }
-    if (event.target.id !== "og-donation-form") return;
-    event.preventDefault();
-    const f = event.target;
-    if (!f.reportValidity()) return;
-    const proof=document.getElementById("og-proof");
-    if(!proof || !proof.files.length || document.getElementById("og-contact-stage").hidden) return;
-    const data = new FormData(f);
-    const clean = key => String(data.get(key) || "").trim().replace(/[\\r\\n]/g," ");
-    const name=clean("name"),email=clean("email"),phone=clean("phone");
-    const amount=clean("amount"),reference=clean("reference");
-    if(!name||!email||!phone||!reference||!amount||!data.get("consent")) return;
-    const subject = "OUR GLASS donation proof — pending verification";
-    const body = "Hello The Afterword Concierge,\\n\\nPlease find my donation details below.\\n\\n"+
-      "Name: "+name+"\\nEmail: "+email+"\\nPhone: "+phone+"\\nAmount (PHP): "+amount+
-      "\\nGCash reference: "+reference+"\\n\\nI consent to manual processing of my details and proof for verification and onboarding correspondence.\\n\\n"+
-      "IMPORTANT: I WILL ATTACH MY ACTUAL GCASH PAYMENT SCREENSHOT BEFORE SENDING THIS EMAIL.\\n"+
-      "I understand that my three-week preparation begins only after payment verification and confirmation.";
-    const proceed = window.confirm("To finish submitting, your email app will open. Attach the payment screenshot you selected and press Send. Selecting it on this page did not upload it or send your details. Continue to email?");
-    if (!proceed) return;
-    window.location.href="mailto:industries@barbph.com?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
-  });
-  overlay.addEventListener("change", event => {
-    if(!event.target || event.target.id !== "og-proof")return;
-    const file=event.target.files && event.target.files[0];
-    const error=document.getElementById("og-proof-error");
-    const contact=document.getElementById("og-contact-stage");
-    const allowed=["image/png","image/jpeg","image/webp"];
-    const good=!!file && allowed.includes(file.type) && file.size>0 && file.size<=4*1024*1024;
-    if(!good){
-      contact.hidden=true;
-      error.textContent="Please select a JPG, PNG or WEBP screenshot smaller than 4 MB.";
-      error.hidden=false;
-      return;
-    }
-    error.hidden=true;
-    contact.hidden=false;
-    contact.scrollIntoView({block:"start",behavior:"smooth"});
-  });
   closeButton.addEventListener("click", goHome);
   overlay.addEventListener("click", event => {
     if (event.target === overlay) goHome();
