@@ -34,8 +34,8 @@ function proofSubmit(payload) {
   if(payload.website) throw new Error('Submission not accepted.');
   if(payload.consent!==true) throw new Error('Consent is required.');
   const name=clean_(payload.name,120), email=String(payload.email||'').trim().toLowerCase();
-  const reference=clean_(payload.reference,90), amount=Number(payload.amount);
-  if(!name || !validEmail_(email) || !reference || !Number.isFinite(amount) || amount<=0 || amount>1000000)
+  const reference=clean_(payload.reference,90), phone=clean_(payload.phone,35), amount=Number(payload.amount);
+  if(!name || !validEmail_(email) || !/^[+0-9 ()-]{7,35}$/.test(phone.replace(/^'/,'')) || !reference || !Number.isFinite(amount) || amount<=0 || amount>1000000)
     throw new Error('Please check your name, email, transaction reference, and donation amount.');
   const mime=String(payload.mime||'').toLowerCase();
   if(!['image/jpeg','image/png','image/webp'].includes(mime)) throw new Error('Upload a JPG, PNG, or WEBP screenshot.');
@@ -76,10 +76,67 @@ function proofSubmit(payload) {
     file.setDescription('OUR GLASS payment proof '+id+' — private');
     const stamp=now.toISOString();
     try {
-      sheet.appendRow([id,stamp,name,clean_(email,160),reference,amount,file.getUrl(),'Pending Verification','','','','','']);
+      sheet.appendRow([id,stamp,name,clean_(email,160),reference,amount,file.getUrl(),'Pending Verification','','','','','',phone]);
       const audit=SpreadsheetApp.openById(sheetId).getSheetByName('Audit Log');
       if(audit)audit.appendRow([stamp,id,'Payment proof submitted','web form','Pending Verification']);
     }catch(err){file.setTrashed(true);throw err;}
     return {ok:true,submissionId:id,message:'Submission received. Pending manual GCash verification.'};
   }finally{lock.releaseLock();}
+}
+
+
+/** ADMIN ONLY: verify payment in the real GCash ledger BEFORE calling this.
+ * The verified timestamp starts the 21-day preparation period.
+ * Pass a visible spreadsheet row number >= 2, e.g. approveDonationRow(2).
+ */
+function approveDonationRow(rowNumber) {
+  const props=PropertiesService.getScriptProperties();
+  const sheet=SpreadsheetApp.openById(props.getProperty('OURGLASS_SHEET_ID')).getSheetByName(OG.sheetName);
+  rowNumber=Number(rowNumber);
+  if(!Number.isInteger(rowNumber)||rowNumber<2||rowNumber>sheet.getLastRow())throw new Error('Invalid row');
+  const lock=LockService.getScriptLock();lock.waitLock(15000);
+  try {
+    const row=sheet.getRange(rowNumber,1,1,14).getValues()[0];
+    if(row[7]!=='Pending Verification')throw new Error('Only pending donations can be approved.');
+    if(!validEmail_(String(row[3]).replace(/^'/,'')))throw new Error('Invalid contact email.');
+    // Columns: H status, I verified timestamp, J setup notification timestamp.
+    sheet.getRange(rowNumber,8,1,2).setValues([['Approved',new Date()]]);
+    const audit=SpreadsheetApp.openById(props.getProperty('OURGLASS_SHEET_ID')).getSheetByName('Audit Log');
+    if(audit)audit.appendRow([new Date().toISOString(),row[0],'Payment verified','admin','21-day preparation started']);
+    MailApp.sendEmail({
+      to:String(row[3]).replace(/^'/,''),
+      subject:'OUR GLASS — Your donation has been verified',
+      body:'Hello '+String(row[2]).replace(/^'/,'')+',\n\nWe have verified your donation. Your three-week preparation period begins today. Please take this time to consider your wishes and choose the trusted person who will officially inform The Afterword Concierge of your death when the time comes. Ask for their permission before sharing their details.\n\nWe will email you after approximately three weeks with the next steps for account setup.\n\nSubmission reference: '+row[0]+'\n\nThe Afterword Concierge'
+    });
+  } finally {lock.releaseLock();}
+}
+
+/** Set once by the admin after completing a test using verified sample data. */
+function installPreparationReminder() {
+  ScriptApp.getProjectTriggers().filter(t=>t.getHandlerFunction()==='sendDuePreparationNotices')
+    .forEach(t=>ScriptApp.deleteTrigger(t));
+  ScriptApp.newTrigger('sendDuePreparationNotices').timeBased().everyDays(1).atHour(9).create();
+}
+
+/** Runs daily. A notice is NOT a functional account or invitation. */
+function sendDuePreparationNotices() {
+  const props=PropertiesService.getScriptProperties();
+  const sheet=SpreadsheetApp.openById(props.getProperty('OURGLASS_SHEET_ID')).getSheetByName(OG.sheetName);
+  const lock=LockService.getScriptLock();lock.waitLock(20000);
+  try {
+    const rows=sheet.getDataRange().getValues();
+    const due=21*24*60*60*1000;
+    for(let i=1;i<rows.length;i++) {
+      const row=rows[i];
+      if(row[7]!=='Approved'||!(row[8] instanceof Date)||row[9])continue;
+      if(Date.now()-row[8].getTime()<due)continue;
+      const email=String(row[3]).replace(/^'/,'');
+      MailApp.sendEmail({
+        to:email,
+        subject:'OUR GLASS — Your three-week preparation period is complete',
+        body:'Hello '+String(row[2]).replace(/^'/,'')+',\n\nYour three-week preparation period is complete. We will provide your secure account setup instructions when onboarding is ready. Please have the name and contact information of your nominated official death reporter ready, and obtain their consent first. Do not send their private details by replying to this email.\n\nSubmission reference: '+row[0]+'\n\nThe Afterword Concierge'
+      });
+      sheet.getRange(i+1,10).setValue(new Date());
+    }
+  } finally {lock.releaseLock();}
 }
