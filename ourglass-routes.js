@@ -334,8 +334,9 @@
       document.getElementById("og-donor-name").value=name;
       document.getElementById("og-guest-greeting").textContent=name;
       event.target.hidden=true;
-      document.getElementById("og-qr-stage").hidden=false;
-      panel.scrollTo({top:0,behavior:"smooth"});
+      const qrStage=document.getElementById("og-qr-stage");
+      qrStage.hidden=false;
+      qrStage.scrollIntoView({block:"start",behavior:"smooth"});
       return;
     }
     if (event.target.id !== "og-donation-form") return;
