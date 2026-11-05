@@ -122,7 +122,7 @@
         '<label>Phone number<input name="phone" type="tel" maxlength="35" autocomplete="tel" required></label>' +
         '<label>Donation amount (PHP)<input name="amount" type="number" min="0.01" step="0.01" required></label>' +
         '<label>GCash transaction reference<input name="reference" maxlength="90" required></label>' +
-        '<label class="og-consent"><input type="checkbox" name="consent" required> I agree to email my contact details and proof for manual donation verification and three-week preparation follow-up.</label>' +
+        '<label class="og-consent"><input type="checkbox" name="consent" required> I agree that The Afterword Concierge may use the contact details and payment proof I provide to verify my donation and contact me about my three-week preparation and next steps.</label>' +
         '<button type="submit" class="og-send-email">Prepare my proof email</button>' +
         '<p class="og-muted">Your email app will open with these details. <strong>Attach your GCash payment screenshot and press Send.</strong> This website does not automatically upload your proof or record your payment. Do not include your GCash PIN, password or OTP.</p></form>';
   }
