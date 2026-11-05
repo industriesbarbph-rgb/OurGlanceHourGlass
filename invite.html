@@ -43,11 +43,8 @@ input:focus-visible{outline:2px solid #9097a2;outline-offset:2px}
 .subtle{font-size:12px;color:#746e69;margin:12px 0}
 small{font-size:12px;color:#746e69}
 button:disabled{cursor:not-allowed;opacity:.52}
-#invite-frame{display:none;width:100%;height:615px;border:0;background:transparent;overflow:auto}
-#preview{display:block}
-.notice{padding:12px 0;border-top:1px solid #e4ddd5;color:#625b55;font-size:13px}
 footer{border-top:1px solid #ddd6cf;margin-top:46px;padding-top:16px;color:#7a726a;font-size:11px;letter-spacing:.045em}
-@media(max-width:450px){h1{font-size:clamp(44px,12vw,62px)}#invite-frame{height:700px}}
+@media(max-width:450px){h1{font-size:clamp(44px,12vw,62px)}}
 </style>
 </head>
 <body>
@@ -58,28 +55,34 @@ footer{border-top:1px solid #ddd6cf;margin-top:46px;padding-top:16px;color:#7a72
 <h1>Allow Me<br>to Invite You.</h1>
 <p class="lead">Share how The Afterword Concierge may reach you once I pass away.</p>
 <div id="preview">
-<form aria-label="Afterword contact details form" novalidate>
- <label for="name">Your name<input id="name" name="name" autocomplete="name" maxlength="120" placeholder="Full name" required></label>
+<form id="invitation-form" aria-label="Afterword contact details form" method="post" target="_blank" rel="noopener">
+ <input type="hidden" name="formType" value="invite">
+ <div hidden aria-hidden="true"><label>Do not fill this field<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+ <label for="name">Your name<input id="name" name="fullName" autocomplete="name" maxlength="120" placeholder="Full name" required></label>
  <label for="email">Your email<input id="email" name="email" type="email" autocomplete="email" maxlength="160" placeholder="name@example.com" required></label>
  <label for="mobile">Mobile number <small>(optional)</small><input id="mobile" name="mobile" type="tel" autocomplete="tel" maxlength="35" placeholder="Include country code and mobile number"></label>
- <label class="check"><input type="checkbox" name="consent" required><span>I agree to share these details with The Afterword Concierge so I may be contacted about the passing of the person who invited me, after appropriate verification. I understand that I may request removal of my details.</span></label>
- <button class="engraved" type="submit" disabled aria-disabled="true">Send my details</button>
+ <label for="invitedBy">Who invited you?<input id="invitedBy" name="invitedBy" type="text" maxlength="120" placeholder="Name of the person who invited you" required></label>
+ <label class="check"><input type="checkbox" name="consent" value="yes" required><span>I agree to share these details with The Afterword Concierge so I may be contacted about the passing of the person who invited me, after appropriate verification. I understand that I may request removal of my details.</span></label>
+ <button id="invitation-submit" class="engraved" type="submit" disabled aria-disabled="true">Send my details</button>
+ <p id="invitation-status" class="subtle" role="status">Invitations are not accepting submissions until the secure spreadsheet connection is activated.</p>
 </form>
-
 </div>
-<iframe id="invite-frame" title="OUR GLASS secure invitation details form" referrerpolicy="no-referrer"></iframe>
 <p class="subtle">These details are intended for a future verified notification about the person who invited you. They will not appear publicly. For privacy questions or removal requests, write to <a href="mailto:industries@barbph.com">industries@barbph.com</a>.</p>
 <footer>POWERED BY BARB THE BUILDER · © <span class="copyright-year">2026</span> OUR GLASS. All rights reserved.</footer>
 </main>
 <script src="/ourglass-config.js"></script>
 <script>
 (() => {
- const url=String(window.OURGLASS_INVITATION_FORM_URL||"");
- if(!/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec(?:\?view=invite)?$/.test(url))return;
- document.getElementById("preview").hidden=true;
- const frame=document.getElementById("invite-frame");
- frame.style.display="block";
- frame.src=url;
+ 'use strict';
+ const form=document.getElementById("invitation-form");
+ const button=document.getElementById("invitation-submit");
+ const notice=document.getElementById("invitation-status");
+ const url=String(window.OURGLASS_INVITATION_POST_URL||"");
+ if(!/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(url)) return;
+ form.action=url;
+ button.disabled=false;
+ button.removeAttribute("aria-disabled");
+ notice.textContent="After you send your details, a separate confirmation page will open. Keep the submission reference it gives you.";
 })();
 </script>
 <script>document.querySelectorAll(".copyright-year").forEach(el => { el.textContent = String(new Date().getFullYear()); });</script>
