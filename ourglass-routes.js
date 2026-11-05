@@ -4,6 +4,7 @@
   const PATHS = ["join","prepare","donate","verification","pending","setup"];
   const stylesheet = document.createElement("style");
   stylesheet.textContent = `
+    .og-nav[hidden]{display:none!important}
     .og-nav{position:fixed;bottom:max(18px,env(safe-area-inset-bottom));right:20px;z-index:90;display:flex;gap:9px;flex-wrap:wrap;justify-content:flex-end;max-width:min(90vw,440px)}
     .og-link,.og-button{font:600 11px/1.3 Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border:1px solid #b5a99b;border-radius:99px;padding:13px 16px;background:#fcfbf9f0;color:#35302b;text-decoration:none;backdrop-filter:blur(12px)}
     .og-button:focus-visible,.og-link:focus-visible{outline:3px solid #8a6b4d;outline-offset:3px}
@@ -24,11 +25,11 @@
     @media(max-width:650px){.og-nav{right:8px;left:8px;bottom:max(10px,env(safe-area-inset-bottom));justify-content:center}.og-link{font-size:10px;padding:12px}.og-panel{padding:32px 23px}}
   `;
   document.head.appendChild(stylesheet);
-  const nav = document.createElement("nav");
+  const nav = document.querySelector("nav.og-nav") || document.createElement("nav");
   nav.className = "og-nav";
   nav.setAttribute("aria-label","OUR GLASS actions");
-  nav.innerHTML = '<a class="og-link" href="#/join">Join a circle</a><a class="og-link" href="#/prepare">Prepare my afterword</a>';
-  document.body.appendChild(nav);
+  nav.innerHTML = '<a class="og-link" href="#/join">Join a circle</a><a class="og-link" href="#/prepare">Prepare my afterword</a><a class="og-link" href="/about.html">About</a>';
+  if (!nav.isConnected) document.body.appendChild(nav);
   const backdrop = document.createElement("div");
   backdrop.className = "og-backdrop";
   backdrop.hidden = true;
