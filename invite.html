@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Allow Me to Invite You | OUR GLASS · The Afterword Concierge</title>
+<meta name="description" content="Share your details with OUR GLASS to receive an invitation to The Afterword Concierge. Death Notification & Beyond.">
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://ourglass.barbph.com/invite.html">
+<meta name="theme-color" content="#fcfbf9"><meta name="color-scheme" content="light">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#fcfbf9;color:#252525;font:15px/1.65 Arial,Helvetica,sans-serif}
+main{max-width:680px;margin:auto;padding:clamp(23px,5vw,55px) 24px 70px}
+.eyebrow{font:700 11px/1.5 Arial,sans-serif;letter-spacing:.21em;color:#77706b;text-transform:uppercase;margin:0 0 16px}
+h1{font:italic 500 clamp(47px,9vw,84px)/.96 'Cormorant Garamond',Georgia,serif;margin:24px 0;color:#24262b;letter-spacing:-.038em}
+.lead{font:400 clamp(21px,3vw,28px)/1.33 'Cormorant Garamond',Georgia,serif;color:#4c4643;margin:0 0 24px}
+.engraved,.engraved:visited{
+ display:inline-flex;align-items:center;justify-content:center;min-height:44px;
+ padding:4px 0;border:0!important;border-radius:0!important;box-shadow:none!important;
+ text-decoration:none;background-color:transparent!important;
+ background-image:linear-gradient(155deg,#16181b 3%,#4e545b 29%,#adb2ba 47%,#23262a 62%,#565d66 79%,#131519 96%)!important;
+ -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#24262c;
+ font:italic 600 25px/1.1 'Cormorant Garamond',Georgia,serif;
+ filter:drop-shadow(0 -1px 0 rgba(255,255,255,.65)) drop-shadow(0 1px 1px rgba(23,27,31,.18));
+ cursor:pointer;
+}
+.engraved:focus-visible,a:focus-visible{outline:2px solid #737985;outline-offset:5px}
+hr{border:0;border-top:1px solid #d9d2cb;margin:28px 0}
+form{display:grid;gap:17px;margin:32px 0 15px}
+label{display:block;font-size:13px;font-weight:600;color:#49443f}
+input:not([type=checkbox]){
+ display:block;width:100%;min-height:49px;margin-top:7px;padding:11px 13px;
+ border:1px solid #c9c4bf;border-radius:2px;background:#fff;color:#232323;
+ font:16px/1.4 Arial,Helvetica,sans-serif;
+}
+input:focus-visible{outline:2px solid #9097a2;outline-offset:2px}
+.check{display:flex;gap:11px;align-items:flex-start;font-weight:400;line-height:1.5}
+.check input{width:18px;height:18px;flex:0 0 18px;margin:3px 0 0;accent-color:#565b65}
+.subtle{font-size:12px;color:#746e69;margin:12px 0}
+small{font-size:12px;color:#746e69}
+button:disabled{cursor:not-allowed;opacity:.52}
+#invite-frame{display:none;width:100%;height:615px;border:0;background:transparent;overflow:auto}
+#preview{display:block}
+.notice{padding:12px 0;border-top:1px solid #e4ddd5;color:#625b55;font-size:13px}
+footer{border-top:1px solid #ddd6cf;margin-top:46px;padding-top:16px;color:#7a726a;font-size:11px;letter-spacing:.045em}
+@media(max-width:450px){h1{font-size:clamp(44px,12vw,62px)}#invite-frame{height:700px}}
+</style>
+</head>
+<body>
+<main>
+<a class="engraved" href="/">← OUR GLASS</a>
+<hr>
+<p class="eyebrow">OUR GLASS · The Afterword Concierge</p>
+<h1>Allow Me<br>to Invite You.</h1>
+<p class="lead">A quiet invitation to stay in touch. Share how we may reach you about The Afterword Concierge.</p>
+<div id="preview">
+<form aria-label="Invitation interest form" novalidate>
+ <label for="name">Your name<input id="name" name="name" autocomplete="name" maxlength="120" placeholder="Full name" required></label>
+ <label for="email">Your email<input id="email" name="email" type="email" autocomplete="email" maxlength="160" placeholder="name@example.com" required></label>
+ <label for="mobile">Mobile number <small>(optional)</small><input id="mobile" name="mobile" type="tel" autocomplete="tel" maxlength="35" placeholder="+63"></label>
+ <label class="check"><input type="checkbox" name="consent" required><span>I agree to be contacted by OUR GLASS about an invitation to The Afterword Concierge. I understand that I can request removal of my details.</span></label>
+ <button class="engraved" type="submit" disabled aria-disabled="true">Send my details</button>
+</form>
+<p class="notice" role="status">The invitation submission connection is being finalized. The form is visible for preview, but details cannot be sent yet.</p>
+</div>
+<iframe id="invite-frame" title="OUR GLASS secure invitation details form" referrerpolicy="no-referrer"></iframe>
+<p class="subtle">Your information is for invitation contact only, not for public display or automatic death notifications. To request removal, write to <a href="mailto:industries@barbph.com">industries@barbph.com</a>.</p>
+<footer>POWERED BY BARB THE BUILDER · <a href="https://barbph.com/" rel="noopener noreferrer">BarbPH</a></footer>
+</main>
+<script src="/ourglass-config.js"></script>
+<script>
+(() => {
+ const url=String(window.OURGLASS_INVITATION_FORM_URL||"");
+ if(!/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec(?:\?view=invite)?$/.test(url))return;
+ document.getElementById("preview").hidden=true;
+ const frame=document.getElementById("invite-frame");
+ frame.style.display="block";
+ frame.src=url;
+})();
+</script>
+</body></html>
