@@ -7,12 +7,22 @@ label{display:block;font-size:12px;font-weight:700;margin:14px 0 6px;letter-spac
 input:not([type=checkbox]){width:100%;padding:12px;border:1px solid #c4b9b0;border-radius:4px;font:inherit;background:white}
 button{background:#332b25;color:white;border:0;padding:15px 18px;cursor:pointer;width:100%;font-weight:700;margin-top:24px}
 button:disabled{opacity:.65;cursor:wait}.muted{color:#6c625b;font-size:12px}.error{color:#9e2525}.success{color:#245c35}
-.qr{display:block;max-width:245px;width:65%;margin:20px auto 10px;background:white;padding:12px}
+.qr{display:block;width:min(100%,340px);height:auto;margin:16px auto 8px;background:#fff;padding:8px;border:1px solid #e9e5e0;object-fit:contain;image-rendering:auto}
+.qr-guide{max-width:410px;margin:8px auto 20px;text-align:center}
+.qr-guide p{margin:8px 0;font-size:13px;line-height:1.55;color:#655d57}
+.qr-save{display:inline-flex;min-height:44px;align-items:center;justify-content:center;padding:8px 17px;border:1px solid #c3bcb4;border-radius:8px;color:#383431;background:#faf8f5;font-weight:700;text-decoration:none}
+.qr-save:focus-visible{outline:2px solid #8b8279;outline-offset:3px}
+@media(max-width:420px){body{padding:16px}.qr{width:min(100%,320px)}}
 </style></head><body>
 <p class="muted">OUR GLASS · The Afterword Concierge</p>
 <h1>Donation &amp; proof</h1>
 <p>First donate any amount using the official GCash QR below. Then upload the actual payment screenshot. Submission does not mean your payment is verified or your account approved.</p>
-<img class="qr" alt="OUR GLASS official GCash payment QR code" src="<?= qrDataUrl ?>">
+<img class="qr" alt="OUR GLASS GCash payment QR code, preserved without any decorative overlays" width="756" height="756" src="<?!= qrDataUrl ?>">
+<div class="qr-guide">
+  <a class="qr-save" href="<?!= qrDataUrl ?>" download="OUR-GLASS-GCash-QR.png">Save QR image</a>
+  <p>Using one phone? Save the QR image, then in GCash choose <strong>QR → Upload QR</strong>. With two devices, scan this QR from the other screen.</p>
+  <p><strong>Check the recipient details in GCash before sending.</strong> Your payment is not approved until we verify the actual transaction.</p>
+</div>
 <form id="payment">
 <label for="name">Your name</label><input id="name" name="name" maxlength="120" required autocomplete="name">
 <label for="email">Email for confirmation</label><input id="email" name="email" type="email" maxlength="160" required autocomplete="email">
