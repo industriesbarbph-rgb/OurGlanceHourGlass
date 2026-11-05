@@ -33,10 +33,16 @@
     }
     .og-panel[data-route="prepare"] .og-intro-layout{
       display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);
-      gap:clamp(28px,4vw,50px);align-items:center;
+      gap:clamp(28px,4vw,50px);align-items:stretch;
     }
     .og-panel[data-route="prepare"] .og-intro-heading,
     .og-panel[data-route="prepare"] .og-intro-card{min-width:0}
+    /* Keep the heading in place; anchor both links near the bottom green guide. */
+    .og-panel[data-route="prepare"] .og-intro-heading{
+      position:relative;align-self:stretch;
+      padding-top:clamp(80px,14vh,125px);
+      padding-bottom:110px;
+    }
     .og-panel[data-route="prepare"] .og-title{
       font-size:clamp(35px,3.15vw,48px);line-height:1.08;
       margin:0 0 18px;max-width:13em;letter-spacing:-.025em;
@@ -84,7 +90,7 @@
     .og-panel[data-route="prepare"] .og-muted{
       font-size:clamp(13px,1.09vw,14px);line-height:1.55;
     }
-    .og-panel[data-route="prepare"] .og-intro-links{margin-top:clamp(82px,11vh,118px)}
+    .og-panel[data-route="prepare"] .og-intro-links{position:absolute;left:0;bottom:0;margin:0}
     .og-panel[data-route="prepare"] .og-intro-links .og-actions{
       display:flex;flex-direction:column;align-items:flex-start;
       justify-content:flex-start;gap:7px;margin:0;
@@ -96,6 +102,8 @@
     @media(max-width:760px){
       .og-panel[data-route="prepare"]{width:100%;padding:27px 23px 30px}
       .og-panel[data-route="prepare"] .og-intro-layout{display:block}
+      .og-panel[data-route="prepare"] .og-intro-heading{padding:0}
+      .og-panel[data-route="prepare"] .og-intro-links{position:static;margin-top:24px;margin-bottom:18px}
       .og-panel[data-route="prepare"] .og-title{font-size:clamp(34px,7vw,46px);margin-bottom:12px}
       .og-panel[data-route="prepare"] .og-copy{font-size:14px;margin-bottom:14px}
       .og-panel[data-route="prepare"] .og-card{padding:17px}
@@ -103,6 +111,7 @@
     }
     @media(max-height:620px) and (min-width:761px){
       .og-panel[data-route="prepare"]{padding:18px 28px}
+      .og-panel[data-route="prepare"] .og-intro-heading{padding-top:clamp(30px,9vh,70px);padding-bottom:100px}
       .og-panel[data-route="prepare"] .og-title{font-size:clamp(34px,3.7vw,46px);margin-bottom:10px}
       .og-panel[data-route="prepare"] .og-card{padding:15px}
       .og-panel[data-route="prepare"] .og-steps li{min-height:35px;padding:1px 0}.og-panel[data-route="prepare"] .og-steps li:not(:last-child)::after{top:29px;bottom:-5px}.og-panel[data-route="prepare"] .og-timeline-details{margin-top:9px;padding-top:9px}
