@@ -202,73 +202,46 @@ main{position:fixed;inset:0;overflow:hidden;isolation:isolate;background:linear-
  padding:0!important;margin:-1px!important;overflow:hidden!important;
  clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important;}
 
-/* Editorial navigation: one graceful invitation, with a quiet About link. */
+/* A single unobtrusive About link. No bottom-left CTA or gradient surface. */
 .og-nav{
-  position:fixed;right:clamp(20px,4.2vw,65px);
-  bottom:max(22px,env(safe-area-inset-bottom));
-  z-index:90;display:flex;align-items:baseline;justify-content:flex-end;
-  gap:clamp(22px,3vw,50px);max-width:calc(100vw - 36px);
+  position:fixed;
+  z-index:90;
+  right:clamp(18px,4vw,50px);
+  bottom:max(20px,env(safe-area-inset-bottom));
+  display:block;
 }
 .og-nav[hidden]{display:none!important}
-.og-nav a,.og-nav a:visited{
-  position:relative;display:inline-flex;align-items:center;justify-content:center;
-  box-sizing:border-box;min-height:50px;min-width:0;
-  padding:8px 2px 11px;
-  border:0!important;border-radius:0!important;box-shadow:none!important;
-  background:transparent!important;
-  text-decoration:none;text-transform:none;white-space:nowrap;
+.og-nav .og-about,.og-nav .og-about:visited{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  min-width:48px;
+  padding:7px 3px;
+  border:none;
+  border-radius:0;
+  background:none;
+  background-image:none;
+  box-shadow:none;
+  text-decoration:none;
+  text-transform:none;
+  color:#5f5d5f;
+  -webkit-text-fill-color:#5f5d5f;
+  font:italic 500 clamp(18px,1.45vw,21px)/1.2 'Cormorant Garamond',Georgia,serif;
+  letter-spacing:.005em;
   -webkit-tap-highlight-color:transparent;
 }
-.og-nav .og-begin,.og-nav .og-begin:visited{
-  font:italic 600 clamp(30px,2.85vw,44px)/1 'Cormorant Garamond',Georgia,serif;
-  letter-spacing:-.028em;
-  background-image:linear-gradient(155deg,
-    #101215 6%,#454c55 24%,#bfc3c9 41%,#3e434b 53%,#969da6 68%,#11151a 94%)!important;
-  background-clip:text;-webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;color:#24282e;
-  filter:drop-shadow(0 -1px 0 rgba(255,255,255,.8)) drop-shadow(0 1px 1px rgba(35,37,42,.25));
+.og-nav .og-about:hover,.og-nav .og-about:focus-visible{
+  color:#272a30;
+  -webkit-text-fill-color:#272a30;
+  text-decoration:underline;
+  text-underline-offset:4px;
 }
-.og-nav .og-begin::after{
-  content:"";position:absolute;left:0;right:0;bottom:3px;height:1px;
-  background:linear-gradient(90deg,transparent 0%,#373f49 12%,#d5d8df 45%,#555d68 80%,transparent 100%);
-  opacity:.78;transform:scaleX(.82);
-  transition:transform .22s ease,opacity .22s ease;
-}
-.og-nav .og-begin:hover::after,.og-nav .og-begin:focus-visible::after{
-  opacity:1;transform:scaleX(1);
-}
-.og-nav .og-begin:hover,.og-nav .og-begin:focus-visible{
-  filter:drop-shadow(0 0 4px rgba(139,150,170,.42)) drop-shadow(0 1px 1px rgba(35,37,42,.22));
-}
-.og-nav .og-about,.og-nav .og-about:visited{
-  font:italic 500 clamp(19px,1.65vw,24px)/1 'Cormorant Garamond',Georgia,serif;
-  letter-spacing:.012em;color:#45484d!important;
-  -webkit-text-fill-color:#45484d!important;
-  filter:drop-shadow(0 -1px 0 rgba(255,255,255,.7));
-}
-.og-nav .og-about:hover,.og-nav .og-about:focus-visible{color:#12151a!important;-webkit-text-fill-color:#12151a!important}
-.og-nav a:focus-visible{outline:2px solid #78818c;outline-offset:4px}
+.og-nav .og-about:focus-visible{outline:2px solid #78818c;outline-offset:3px}
 @media(max-width:700px){
-  .og-nav{
-    left:12px;right:13px;bottom:max(12px,env(safe-area-inset-bottom));
-    max-width:none;gap:8px;display:flex;
-    justify-content:space-between;align-items:center;
-  }
-  .og-nav .og-begin,.og-nav .og-begin:visited{
-    white-space:normal;text-align:left;
-    font-size:clamp(25px,6.3vw,33px);
-    line-height:1.04;letter-spacing:-.026em;
-    padding-right:8px;
-  }
-  .og-nav .og-about,.og-nav .og-about:visited{
-    flex:none;font-size:clamp(19px,4.5vw,23px);
-  }
+  .og-nav{right:clamp(15px,4vw,24px);bottom:max(12px,env(safe-area-inset-bottom))}
+  .og-nav .og-about,.og-nav .og-about:visited{font-size:19px;min-height:46px}
 }
-@media(max-width:360px){
-  .og-nav{left:9px;right:10px;gap:5px}
-  .og-nav .og-begin,.og-nav .og-begin:visited{font-size:clamp(23px,6.05vw,27px)}
-}
-@media(prefers-reduced-motion:reduce){.og-nav .og-begin::after{transition:none}}
 </style>
 </head>
 <body>
@@ -295,7 +268,6 @@ main{position:fixed;inset:0;overflow:hidden;isolation:isolate;background:linear-
   </section>
 </main>
 <nav class="og-nav" aria-label="OUR GLASS navigation">
-  <a class="og-begin" href="#/prepare">Begin Your Afterword</a>
   <a class="og-about" href="/about.html">About</a>
 </nav>
 <script>
