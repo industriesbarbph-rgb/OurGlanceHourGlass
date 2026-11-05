@@ -109,19 +109,22 @@
       '<div class="og-card"><p class="og-muted"><strong>Not yet accepting registrations.</strong> We will only collect recipient information after secure invitations and private data storage are ready.</p></div>' +
       actions(null, home),
     prepare: () =>
-      header("Your afterword", "Prepare your afterword",
-        "Create a place for your farewell wishes and the people you want informed when the time comes. Personal setup follows donation verification and confirmation.") +
-      '<div class="og-card"><p class="og-step">01 Donation · 02 Payment proof · 03 Verification · 04 Confirmation · 05 Setup</p><p class="og-muted"><strong>Setup is not yet open.</strong> Please do not make a donation for account setup until the submission form is active.</p></div>' +
-      actions('<a class="og-action og-action--primary" href="#/donate">How donation verification works</a>',home),
+      header("Begin yours", "Your afterword begins here",
+        "Your three-week preparation period gives you time to consider your wishes and the people who matter. Personal setup follows donation verification and confirmation.") +
+      '<div class="og-card"><p class="og-step">01 Donate · 02 Submit proof, email and phone number · 03 We verify and confirm · 04 Three-week preparation · 05 Setup invitation</p>' +
+      '<p class="og-muted">Once your donation is verified, we will use your email to contact you at the end of the three-week preparation period with the next steps for your private setup. During that time, choose the <strong>official trusted person</strong> who will inform The Afterword Concierge of your death when the time comes. You will provide their details securely during setup; please ask for their consent first.</p></div>' +
+      '<div class="og-card"><p class="og-muted"><strong>Before donating:</strong> You will need your payment proof, email address and phone number. Your proof will be reviewed against the actual transaction. Registration and notifications are not yet active.</p></div>' +
+      actions('<a class="og-action og-action--primary" href="#/donate">Donation & submission</a>',home),
     donate: () => {
       const url = paymentFormUrl();
       if(url) return header("Before we begin","Donation & verification",
-        "Donate any amount using the official GCash QR. Upload your payment screenshot; an actual GCash transaction must be verified before any account access is approved.") +
-        '<iframe class="og-iframe" title="OUR GLASS payment proof submission" referrerpolicy="no-referrer" src="'+url+'"></iframe>' +
+        "Use only the official payment instructions in the secure form. Donate any amount, upload your payment proof, and leave your email address and phone number. Submission is pending until we verify the actual transaction.") +
+        '<div class="og-card"><p class="og-muted">Following verification and confirmation, you have a three-week preparation period. We will contact you by email afterward about setup and the official person you will nominate to inform us of your death.</p></div>' +
+        '<iframe class="og-iframe" title="OUR GLASS donation proof and contact submission" referrerpolicy="no-referrer" src="'+url+'"></iframe>' +
         actions(null,home);
       return header("Before we begin","Donation & verification",
-        "The secure upload form is being connected. When it opens, you will be able to donate using the official GCash QR and submit proof of your payment.") +
-        '<div class="og-card"><p class="og-muted"><strong>Donations for account setup are not open.</strong> Please do not send money yet. A screenshot alone does not verify payment or unlock setup.</p></div>' +
+        "Our secure submission form is being connected. Once it is live, you can make a donation, upload your receipt, and provide your email and phone number. After verification, you will have three weeks to prepare before your setup invitation.") +
+        '<div class="og-card"><p class="og-muted"><strong>Not yet accepting donations for setup.</strong> Please do not send money until the secure form and official payment instructions are active. A screenshot alone does not verify payment.</p></div>' +
         actions('<a class="og-action og-action--primary" href="#/verification">How verification works</a>',home);
     },
     verification: () =>
