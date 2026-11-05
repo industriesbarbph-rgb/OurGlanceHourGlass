@@ -153,7 +153,7 @@
       '<div class="og-card"><p class="og-muted"><strong>Not yet accepting registrations.</strong> We will only collect recipient information after secure invitations and private data storage are ready.</p></div>' +
       actions(null, home),
     prepare: () =>
-      header("Begin yours", "Your afterword begins here",
+      header("Begin yours", "Your Afterword Account begins here",
         "Your three-week preparation period gives you time to consider your wishes and the people who matter. Personal setup follows donation verification and confirmation.") +
       '<div class="og-card"><p class="og-step">01 Donate · 02 Submit proof, email and phone number · 03 We verify and confirm · 04 Three-week preparation · 05 Setup invitation</p>' +
       '<p class="og-muted">Once your donation is verified, we will use your email to contact you at the end of the three-week preparation period with the next steps for your private setup. During that time, choose the <strong>official trusted person</strong> who will inform The Afterword Concierge of your death when the time comes. You will provide their details securely during setup; please ask for their consent first.</p></div>' +
