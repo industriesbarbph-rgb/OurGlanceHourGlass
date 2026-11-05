@@ -109,7 +109,7 @@
       '<div class="og-card"><p class="og-muted"><strong>Not yet accepting registrations.</strong> We will only collect recipient information after secure invitations and private data storage are ready.</p></div>' +
       actions(null, home),
     prepare: () =>
-      header("A glass of your own", "Make OUR GLASS yours",
+      header("Your afterword", "Prepare your afterword",
         "Create a place for your farewell wishes and the people you want informed when the time comes. Personal setup follows donation verification and confirmation.") +
       '<div class="og-card"><p class="og-step">01 Donation · 02 Payment proof · 03 Verification · 04 Confirmation · 05 Setup</p><p class="og-muted"><strong>Setup is not yet open.</strong> Please do not make a donation for account setup until the submission form is active.</p></div>' +
       actions('<a class="og-action og-action--primary" href="#/donate">How donation verification works</a>',home),
