@@ -11,6 +11,7 @@
  */
 function doPost(e) {
   const p = e && e.parameter ? e.parameter : {};
+  if (p.formType === 'donate') return donationWebPost_(p);
   if (p.formType !== 'invite') {
     return invitationResponse_(false, 'This submission route is unavailable.');
   }
@@ -99,4 +100,52 @@ function invitationResponse_(success, message) {
     '<p><a href="https://ourglass.barbph.com/invite.html">Return to OUR GLASS</a></p>' +
     '</main></body></html>'
   ).setTitle('OUR GLASS — ' + heading);
+}
+
+/**
+ * Receives the restored Smart Move form via a normal cross-origin HTML POST.
+ * Native navigation does not require CORS access or a Google account.
+ * Do not publish a confirmation until proofSubmit has saved both the file
+ * and spreadsheet row successfully.
+ */
+function donationWebPost_(p) {
+  try {
+    if (!p || p.website) throw new Error('Submission not accepted.');
+    if (p.consent !== 'yes') throw new Error('Consent is required.');
+    const result = proofSubmit({
+      name: p.name,
+      email: p.email,
+      phone: p.phone,
+      reference: p.reference,
+      amount: p.amount,
+      mime: p.mime,
+      base64: p.base64,
+      consent: true,
+      website: ''
+    });
+    if (!result || result.ok !== true || !result.submissionId)
+      throw new Error('The submission could not be verified as received. Please try again.');
+    return donationWebResponse_(true, 'Proof received. Reference: ' +
+      result.submissionId + '. Your submission is Pending Verification. ' +
+      'Payment has NOT been confirmed. Keep your reference for your records.');
+  } catch (err) {
+    return donationWebResponse_(false, err && err.message ?
+      String(err.message) : 'The submission could not be completed. Please try again.');
+  }
+}
+function donationWebResponse_(success, message) {
+  const title = success ? 'Payment proof received' : 'Submission not completed';
+  return HtmlService.createHtmlOutput(
+    '<!doctype html><html lang="en"><head><meta charset="utf-8">' +
+    '<meta name="viewport" content="width=device-width,initial-scale=1">' +
+    '<title>OUR GLASS — ' + title + '</title>' +
+    '<style>body{margin:0;padding:clamp(25px,6vw,65px);font:16px/1.7 Arial,sans-serif;' +
+    'background:#fcfbf9;color:#302a25}main{max-width:580px;margin:6vh auto}' +
+    'h1{font:italic 500 clamp(39px,6vw,56px)/1.08 Georgia,serif}' +
+    'a{color:#50483f;text-underline-offset:4px}</style></head><body><main>' +
+    '<p>OUR GLASS · The Afterword Concierge</p><h1>' + title + '</h1><p>' +
+    invitationEscape_(message) + '</p>' +
+    '<p><a href="https://ourglass.barbph.com/">Return to The Afterword Concierge</a></p>' +
+    '</main></body></html>'
+  ).setTitle('OUR GLASS — ' + title);
 }
