@@ -47,8 +47,17 @@
     .og-panel[data-route="prepare"] .og-card{
       margin:0;padding:clamp(17px,1.9vw,24px);background:rgba(255,254,250,.72);
     }
-    .og-panel[data-route="prepare"] .og-step{
-      font-size:clamp(12px,1vw,13px);line-height:1.55;margin-bottom:13px;
+    .og-panel[data-route="prepare"] .og-steps{
+      list-style:none;margin:0 0 17px;padding:0;
+      display:grid;grid-template-columns:minmax(0,1fr);row-gap:5px;
+      color:#8a704f;font:700 clamp(12px,1vw,13px)/1.45 Arial,Helvetica,sans-serif;
+    }
+    .og-panel[data-route="prepare"] .og-steps li{
+      display:grid;grid-template-columns:29px minmax(0,1fr);
+      align-items:baseline;column-gap:10px;
+    }
+    .og-panel[data-route="prepare"] .og-step-number{
+      color:#a28b73;font-variant-numeric:tabular-nums;letter-spacing:.045em;
     }
     .og-panel[data-route="prepare"] .og-muted{
       font-size:clamp(13px,1.09vw,14px);line-height:1.55;
@@ -69,7 +78,7 @@
       .og-panel[data-route="prepare"]{padding:18px 28px}
       .og-panel[data-route="prepare"] .og-title{font-size:clamp(34px,3.7vw,46px);margin-bottom:10px}
       .og-panel[data-route="prepare"] .og-card{padding:15px}
-      .og-panel[data-route="prepare"] .og-step{margin-bottom:9px;line-height:1.45}
+      .og-panel[data-route="prepare"] .og-steps{row-gap:2px;margin-bottom:10px}
       .og-panel[data-route="prepare"] .og-muted{line-height:1.45}
       .og-panel[data-route="prepare"] .og-actions{margin-top:6px}
     }
@@ -215,7 +224,7 @@
       header("Begin yours", "Your Afterword Account begins here",
         "Your three-week preparation period gives you time to consider your wishes and the people who matter. Personal setup follows donation verification and confirmation.") +
       '</div><div class="og-intro-card">' +
-      '<div class="og-card"><p class="og-step">01 Donate · 02 Submit proof, email and phone number · 03 We verify and confirm · 04 Three-week preparation · 05 Setup invitation</p>' +
+      '<div class="og-card"><ol class="og-steps" aria-label="Your five steps"><li><span class="og-step-number">01</span><span>Donate</span></li><li><span class="og-step-number">02</span><span>Submit proof, email and phone number</span></li><li><span class="og-step-number">03</span><span>We verify and confirm</span></li><li><span class="og-step-number">04</span><span>Three-week preparation</span></li><li><span class="og-step-number">05</span><span>Setup invitation</span></li></ol>' +
       '<p class="og-muted">Once your donation is verified, we will use your email to contact you at the end of the three-week preparation period with the next steps for your private setup. During that time, choose the <strong>official trusted person</strong> who will inform The Afterword Concierge of your death when the time comes. You will provide their details securely during setup; please ask for their consent first.</p></div>' +
       '</div></div>' +
       actions('<a class="og-action og-action--primary" href="#/donate">Donation &amp; submission</a>',home),
