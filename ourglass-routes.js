@@ -25,6 +25,54 @@
       border:1px solid #e4d9cd;border-radius:12px;
       box-shadow:0 25px 90px rgba(25,18,11,.25);
     }
+    /* Smart Move: keep the complete introduction visible in a balanced two-column panel. */
+    .og-panel[data-route="prepare"]{
+      width:min(96vw,960px);
+      max-height:calc(100dvh - 36px);
+      padding:clamp(24px,3vw,40px);
+    }
+    .og-panel[data-route="prepare"] .og-intro-layout{
+      display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);
+      gap:clamp(24px,3vw,40px);align-items:center;
+    }
+    .og-panel[data-route="prepare"] .og-intro-heading,
+    .og-panel[data-route="prepare"] .og-intro-card{min-width:0}
+    .og-panel[data-route="prepare"] .og-title{
+      font-size:clamp(37px,4.4vw,60px);line-height:1.03;
+      margin:0 0 20px;max-width:12em;
+    }
+    .og-panel[data-route="prepare"] .og-copy{
+      font-size:clamp(14px,1.5vw,17px);line-height:1.62;margin:0;
+    }
+    .og-panel[data-route="prepare"] .og-card{
+      margin:0;padding:clamp(18px,2vw,26px);background:rgba(255,254,250,.72);
+    }
+    .og-panel[data-route="prepare"] .og-step{
+      font-size:clamp(12px,1.25vw,14px);line-height:1.7;margin-bottom:15px;
+    }
+    .og-panel[data-route="prepare"] .og-muted{
+      font-size:clamp(13px,1.32vw,15px);line-height:1.58;
+    }
+    .og-panel[data-route="prepare"] .og-actions{
+      justify-content:space-between;margin-top:clamp(12px,2vh,25px);
+      gap:12px 24px;
+    }
+    @media(max-width:760px){
+      .og-panel[data-route="prepare"]{width:100%;padding:27px 23px 30px}
+      .og-panel[data-route="prepare"] .og-intro-layout{display:block}
+      .og-panel[data-route="prepare"] .og-title{font-size:clamp(34px,7vw,46px);margin-bottom:12px}
+      .og-panel[data-route="prepare"] .og-copy{font-size:14px;margin-bottom:14px}
+      .og-panel[data-route="prepare"] .og-card{padding:17px}
+      .og-panel[data-route="prepare"] .og-actions{margin-top:12px}
+    }
+    @media(max-height:620px) and (min-width:761px){
+      .og-panel[data-route="prepare"]{padding:18px 28px}
+      .og-panel[data-route="prepare"] .og-title{font-size:clamp(34px,3.7vw,46px);margin-bottom:10px}
+      .og-panel[data-route="prepare"] .og-card{padding:15px}
+      .og-panel[data-route="prepare"] .og-step{margin-bottom:9px;line-height:1.45}
+      .og-panel[data-route="prepare"] .og-muted{line-height:1.45}
+      .og-panel[data-route="prepare"] .og-actions{margin-top:6px}
+    }
     .og-close{
       position:absolute;right:12px;top:10px;width:44px;height:44px;
       display:grid;place-items:center;background:transparent;border:0;
@@ -153,10 +201,13 @@
       '<div class="og-card"><p class="og-muted"><strong>Not yet accepting registrations.</strong> We will only collect recipient information after secure invitations and private data storage are ready.</p></div>' +
       actions(null, home),
     prepare: () =>
+      '<div class="og-intro-layout"><div class="og-intro-heading">' +
       header("Begin yours", "Your Afterword Account begins here",
         "Your three-week preparation period gives you time to consider your wishes and the people who matter. Personal setup follows donation verification and confirmation.") +
+      '</div><div class="og-intro-card">' +
       '<div class="og-card"><p class="og-step">01 Donate · 02 Submit proof, email and phone number · 03 We verify and confirm · 04 Three-week preparation · 05 Setup invitation</p>' +
       '<p class="og-muted">Once your donation is verified, we will use your email to contact you at the end of the three-week preparation period with the next steps for your private setup. During that time, choose the <strong>official trusted person</strong> who will inform The Afterword Concierge of your death when the time comes. You will provide their details securely during setup; please ask for their consent first.</p></div>' +
+      '</div></div>' +
       actions('<a class="og-action og-action--primary" href="#/donate">Donation &amp; submission</a>',home),
     donate: () =>
       header("Begin yours", "Donation & submission",
@@ -198,6 +249,7 @@
       previousOverflow = document.body.style.overflow;
       lastTrigger = document.activeElement;
     }
+    panel.dataset.route = name;
     contents.innerHTML = views[name]();
     panel.scrollTop = 0;
     overlay.hidden = false;
