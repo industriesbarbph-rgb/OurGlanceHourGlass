@@ -4,3 +4,5 @@
 window.OURGLASS_PAYMENT_FORM_URL = "https://script.google.com/macros/s/AKfycbw-uOAS3TlrvrDmihg5j6EvMARKkX5mNyriDN0fZvpFlbUx07YOLCf90gHoyVoE3FnP6A/exec";
 /* Invitation contacts are sent directly to the owner-controlled Apps Script doPost intake. */
 window.OURGLASS_INVITATION_POST_URL = "https://script.google.com/macros/s/AKfycbw-uOAS3TlrvrDmihg5j6EvMARKkX5mNyriDN0fZvpFlbUx07YOLCf90gHoyVoE3FnP6A/exec";
+/* Enable only after deploying the donation POST route and verifying a real end-to-end test. */
+window.OURGLASS_SMART_MOVE_POST_READY = false;
