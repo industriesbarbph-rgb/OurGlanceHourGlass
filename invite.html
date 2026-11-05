@@ -69,7 +69,7 @@ footer{border-top:1px solid #ddd6cf;margin-top:46px;padding-top:16px;color:#7a72
 </div>
 <iframe id="invite-frame" title="OUR GLASS secure invitation details form" referrerpolicy="no-referrer"></iframe>
 <p class="subtle">These details are intended for a future verified notification about the person who invited you. They will not appear publicly. For privacy questions or removal requests, write to <a href="mailto:industries@barbph.com">industries@barbph.com</a>.</p>
-<footer>POWERED BY BARB THE BUILDER · <a href="https://barbph.com/" rel="noopener noreferrer">BarbPH</a></footer>
+<footer>POWERED BY BARB THE BUILDER · © <span class="copyright-year">2026</span> OUR GLASS. All rights reserved.</footer>
 </main>
 <script src="/ourglass-config.js"></script>
 <script>
@@ -82,4 +82,5 @@ footer{border-top:1px solid #ddd6cf;margin-top:46px;padding-top:16px;color:#7a72
  frame.src=url;
 })();
 </script>
+<script>document.querySelectorAll(".copyright-year").forEach(el => { el.textContent = String(new Date().getFullYear()); });</script>
 </body></html>
