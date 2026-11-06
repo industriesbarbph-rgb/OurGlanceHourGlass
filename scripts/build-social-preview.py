@@ -1,54 +1,83 @@
 #!/usr/bin/env python3
-"""Render the existing OUR GLASS social preview with the same glass-bulb signature.
+"""Build a crop-safe OUR GLASS link preview from the unchanged hourglass image.
 
-Source image is NOT regenerated or retouched. Only a delicate inscription
-is composited onto the lower bulb of the existing social preview.
+Only the social-preview JPG is generated. The website artwork, layout and QR
+images are never modified. Important wording stays in a centered square-safe area.
 """
 from pathlib import Path
-from PIL import Image, ImageDraw, ImageFont, ImageFilter
+from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "og-hourglass.jpg"
+SOURCE = ROOT / "assets" / "hourglass-base.jpg"
 DEST = ROOT / "og-hourglass-signed.jpg"
-SIGNATURE = "POWERED BY BARB THE BUILDER"
+SIZE = (1200, 630)
+BACKGROUND = (251, 249, 246)
+INK = (37, 38, 42)
+SUBTLE = (123, 106, 87)
 
-def load_font(size: int):
-    for p in (
-        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
-        "/usr/share/fonts/truetype/liberation2/LiberationSans-Regular.ttf",
-        "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
-    ):
+
+def font(size, italic=False, bold=False):
+    paths = (
+        ["/usr/share/fonts/truetype/liberation2/LiberationSerif-Italic.ttf",
+         "/usr/share/fonts/truetype/dejavu/DejaVuSerif-Italic.ttf"]
+        if italic else
+        ["/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+         "/usr/share/fonts/truetype/liberation2/LiberationSans-Regular.ttf"]
+    )
+    for p in paths:
         if Path(p).exists():
-            return ImageFont.truetype(p, size=size)
+            return ImageFont.truetype(p, size)
     return ImageFont.load_default()
 
+
+def center_line(draw, text, y, initial_size, max_width, color=INK,
+                italic=False, letter_space=0):
+    size = initial_size
+    f = font(size, italic=italic)
+    def measure():
+        return draw.textlength(text, font=f) + max(0, len(text)-1)*letter_space
+    while measure() > max_width and size > 12:
+        size -= 1
+        f = font(size, italic=italic)
+    start = int(676 - measure()/2)
+    if letter_space:
+        x = start
+        for char in text:
+            draw.text((round(x), y), char, fill=color, font=f)
+            x += draw.textlength(char, font=f) + letter_space
+    else:
+        draw.text((start, y), text, fill=color, font=f)
+    assert start >= 398 and start + measure() <= 954, (text, start, measure())
+
+
 def render():
-    original = Image.open(SOURCE).convert("RGBA")
-    width, height = original.size
-    assert width >= 1200 and height >= 600, f"Unexpected image size: {original.size}"
-    scale = width / 1672
-    font = load_font(round(20 * scale))
-    spacing = 4.0 * scale
+    base = Image.open(SOURCE).convert("RGB")
+    assert base.width >= 1000 and base.height >= 600
+    out = Image.new("RGB", SIZE, BACKGROUND)
+    scale = SIZE[1] / base.height
+    scaled = base.resize((round(base.width*scale), SIZE[1]), Image.Resampling.LANCZOS)
+    crop_width = min(555, scaled.width)
+    left = scaled.crop((0, 0, crop_width, SIZE[1]))
+    # Fade the right edge of the original hourglass into the same pale background.
+    mask = Image.new("L", (crop_width, SIZE[1]), 0)
+    alpha = ImageDraw.Draw(mask)
+    for x in range(crop_width):
+        opacity = 255 if x <= 340 else round(255*max(0, (520-x)/180))
+        alpha.line((x, 0, x, SIZE[1]), fill=opacity)
+    out.paste(left, (0, 0), mask)
 
-    mask = Image.new("L", original.size, 0)
-    draw = ImageDraw.Draw(mask)
-    advances = [draw.textlength(letter, font=font) for letter in SIGNATURE]
-    full_width = sum(advances) + spacing * (len(SIGNATURE) - 1)
-    x = 355 * scale - full_width / 2
-    y = 635 * (height / 941)
+    draw = ImageDraw.Draw(out)
+    center_line(draw, "OUR GLASS", 130, 22, 430, letter_space=4, color=INK)
+    center_line(draw, "The Afterword", 205, 61, 430, italic=True)
+    center_line(draw, "Concierge", 277, 72, 430, italic=True)
+    center_line(draw, "DEATH NOTIFICATION", 411, 24, 430, letter_space=1, color=SUBTLE)
+    center_line(draw, "& BEYOND", 448, 27, 430, letter_space=2, color=SUBTLE)
+    center_line(draw, "POWERED BY BARB THE BUILDER", 542, 13, 430,
+                letter_space=1.1, color=SUBTLE)
+    out.save(DEST, "JPEG", quality=93, subsampling=0, optimize=True)
+    assert Image.open(DEST).size == SIZE
+    print(f"Saved {DEST}: 1200x630, {DEST.stat().st_size} bytes, square-safe title")
 
-    for ch, advance in zip(SIGNATURE, advances):
-        draw.text((round(x), round(y)), ch, font=font, fill=255, stroke_width=0)
-        x += advance + spacing
-
-    # The gentle translucency mimics the original wall-signature CSS.
-    mask = mask.filter(ImageFilter.GaussianBlur(radius=0.24 * scale))
-    mask = mask.point(lambda value: round(value * 0.55))
-    ink = Image.new("RGBA", original.size, (116, 87, 56, 0))
-    ink.putalpha(mask)
-    combined = Image.alpha_composite(original, ink).convert("RGB")
-    combined.save(DEST, "JPEG", quality=95, subsampling=0, optimize=True)
-    print(f"Saved {DEST.name}: {combined.size}; signature only; {DEST.stat().st_size} bytes")
 
 if __name__ == "__main__":
     render()
