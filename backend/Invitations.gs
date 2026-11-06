@@ -123,16 +123,17 @@ function donationWebPost_(p) {
     });
     if (!result || result.ok !== true || !result.submissionId)
       throw new Error('The submission could not be verified as received. Please try again.');
-    return donationWebResponse_(true, 'Proof received. Reference: ' +
+    return donationWebResponse_(true, 'Your donation proof has been received. Reference: ' +
       result.submissionId + '. Your submission is Pending Verification. ' +
-      'Payment has NOT been confirmed. Keep your reference for your records.');
+      'Your donation has not yet been verified. Keep your reference for your records. ' +
+      'Please keep your email and phone lines open for the next stages.');
   } catch (err) {
     return donationWebResponse_(false, err && err.message ?
       String(err.message) : 'The submission could not be completed. Please try again.');
   }
 }
 function donationWebResponse_(success, message) {
-  const title = success ? 'Payment proof received' : 'Submission not completed';
+  const title = success ? 'Donation proof received' : 'Submission not completed';
   return HtmlService.createHtmlOutput(
     '<!doctype html><html lang="en"><head><meta charset="utf-8">' +
     '<meta name="viewport" content="width=device-width,initial-scale=1">' +
