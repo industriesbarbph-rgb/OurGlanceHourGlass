@@ -277,7 +277,6 @@
       '<label>Email address<input name="email" type="email" maxlength="160" autocomplete="email" required></label>' +
       '<label>Phone number<input name="phone" type="tel" maxlength="35" autocomplete="tel" required></label>' +
       '<label>Donation amount (PHP)<input name="amount" type="number" min="0.01" step="0.01" required></label>' +
-      '<label>GCash transaction reference<input name="reference" maxlength="90" required></label>' +
       '<label class="og-consent"><input type="checkbox" name="consent" value="yes" required> I agree that The Afterword Concierge may use my contact details and payment proof to verify my donation and contact me about my three-week preparation and next steps.</label>' +
       '<button type="submit" class="og-send-email" id="og-final-submit"'+(ready?'':' disabled aria-disabled="true"')+'>Submit</button>' +
       (ready?'':'<p class="og-muted">Your details and screenshot can be prepared here. Secure submission will become available after the final server update.</p>') +
