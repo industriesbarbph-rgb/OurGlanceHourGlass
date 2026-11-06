@@ -13,15 +13,15 @@ function doGet() {
   const qrId=PropertiesService.getScriptProperties().getProperty('OURGLASS_QR_FILE_ID');
   if(!qrId) {
     return HtmlService.createHtmlOutput('<main style="font:16px/1.6 Arial;padding:30px;max-width:480px;margin:auto"><h1>OUR GLASS</h1><p>The GCash QR code is not configured. Please do not send donations for account setup yet.</p></main>')
-      .setTitle('OUR GLASS — Payment QR Unavailable');
+      .setTitle('OUR GLASS — Donation QR Unavailable');
   }
   const bytes=DriveApp.getFileById(qrId).getBlob().getBytes();
   const png=bytes.length>8 && [137,80,78,71,13,10,26,10].every((v,i)=>(bytes[i]&255)===v);
-  if(!png) throw new Error('The configured payment QR image must be a PNG.');
+  if(!png) throw new Error('The configured donation QR image must be a PNG.');
   const t=HtmlService.createTemplateFromFile('Upload');
   // Trusted pixel-exact image from the private owner-controlled file.
   t.qrDataUrl='data:image/png;base64,'+Utilities.base64Encode(bytes);
-  return t.evaluate().setTitle('OUR GLASS — Payment Proof')
+  return t.evaluate().setTitle('OUR GLASS — Donation Proof')
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
 function clean_(v, max){
@@ -60,7 +60,7 @@ function proofSubmit(payload) {
     if(!sheet) throw new Error('Submission service not configured.');
     const last=sheet.getLastRow(), now=new Date(), today=Utilities.formatDate(now,'Etc/UTC','yyyy-MM-dd');
     if(last>1){
-      // Protect against reuse of payment references and excessive repeat attempts.
+      // Protect against reuse of donation references and excessive repeat attempts.
       const rows=sheet.getRange(Math.max(2,last-499),1,Math.min(last-1,500),8).getValues();
       let count=0;
       for(const row of rows){
@@ -73,19 +73,19 @@ function proofSubmit(payload) {
     const id='OG-'+Utilities.getUuid().slice(0,18).toUpperCase();
     const ext=mime==='image/png'?'png':mime==='image/webp'?'webp':'jpg';
     const file=DriveApp.getFolderById(folderId).createFile(Utilities.newBlob(bytes,mime,id+'.'+ext));
-    file.setDescription('OUR GLASS payment proof '+id+' — private');
+    file.setDescription('OUR GLASS donation proof '+id+' — private');
     const stamp=now.toISOString();
     try {
       sheet.appendRow([id,stamp,name,clean_(email,160),reference,amount,file.getUrl(),'Pending Verification','','','','','',phone]);
       const audit=SpreadsheetApp.openById(sheetId).getSheetByName('Audit Log');
-      if(audit)audit.appendRow([stamp,id,'Payment proof submitted','web form','Pending Verification']);
+      if(audit)audit.appendRow([stamp,id,'Donation proof submitted','web form','Pending Verification']);
     }catch(err){file.setTrashed(true);throw err;}
     return {ok:true,submissionId:id,message:'Submission received. Pending manual GCash verification.'};
   }finally{lock.releaseLock();}
 }
 
 
-/** ADMIN ONLY: verify payment in the real GCash ledger BEFORE calling this.
+/** ADMIN ONLY: verify donation in the real GCash ledger BEFORE calling this.
  * The verified timestamp starts the 21-day preparation period.
  * Pass a visible spreadsheet row number >= 2, e.g. approveDonationRow(2).
  */
@@ -102,7 +102,7 @@ function approveDonationRow(rowNumber) {
     // Columns: H status, I verified timestamp, J setup notification timestamp.
     sheet.getRange(rowNumber,8,1,2).setValues([['Approved',new Date()]]);
     const audit=SpreadsheetApp.openById(props.getProperty('OURGLASS_SHEET_ID')).getSheetByName('Audit Log');
-    if(audit)audit.appendRow([new Date().toISOString(),row[0],'Payment verified','admin','21-day preparation started']);
+    if(audit)audit.appendRow([new Date().toISOString(),row[0],'Donation verified','admin','21-day preparation started']);
     MailApp.sendEmail({
       to:String(row[3]).replace(/^'/,''),
       subject:'OUR GLASS — Your donation has been verified',
