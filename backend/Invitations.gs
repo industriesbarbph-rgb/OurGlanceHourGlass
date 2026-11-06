@@ -23,10 +23,9 @@ function doPost(e) {
     const name = inviteSafeText_(p.fullName, 120);
     const email = String(p.email || '').trim().toLowerCase();
     const mobile = inviteSafeText_(p.mobile, 35);
-    const inviter = inviteSafeText_(p.invitedBy, 120);
     if (name.length < 2 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
-        !inviter || (mobile && !/^[+0-9 ()-]{7,35}$/.test(mobile))) {
-      throw new Error('Please check your name, email, phone number, and who invited you.');
+        (mobile && !/^[+0-9 ()-]{7,35}$/.test(mobile))) {
+      throw new Error('Please check your name, email, and phone number.');
     }
     const sheetId = PropertiesService.getScriptProperties().getProperty('OURGLASS_INVITATIONS_SHEET_ID');
     if (!sheetId) throw new Error('The invitation intake is not configured yet.');
@@ -37,20 +36,6 @@ function doPost(e) {
       const sheet = SpreadsheetApp.openById(sheetId).getSheetByName('Invitations');
       if (!sheet) throw new Error('Invitation storage is not configured.');
       const now = new Date();
-      const today = Utilities.formatDate(now, 'Etc/UTC', 'yyyy-MM-dd');
-      const last = sheet.getLastRow();
-      // Basic spam/retry protection; not a replacement for monitoring and stronger controls.
-      if (last > 1) {
-        const n = Math.min(last - 1, 250);
-        const rows = sheet.getRange(last - n + 1, 2, n, 3).getValues();
-        let count = 0;
-        for (const row of rows) {
-          const timestamp = row[0] instanceof Date ?
-            Utilities.formatDate(row[0], 'Etc/UTC', 'yyyy-MM-dd') : String(row[0]).slice(0, 10);
-          if (String(row[2]).replace(/^'/,'').toLowerCase() === email && timestamp === today) count++;
-        }
-        if (count >= 3) throw new Error('Too many submissions today. Please contact us by email.');
-      }
       const id = 'OGI-' + Utilities.getUuid().slice(0, 16).toUpperCase();
       sheet.appendRow([
         id,
@@ -60,7 +45,7 @@ function doPost(e) {
         inviteSheetText_(mobile),
         'Yes',
         'Pending association',
-        inviteSheetText_('Website form | Invited by: ' + inviter)
+        inviteSheetText_('Website form')
       ]);
       // An invitation submission is contact intake only, not authorization
       // to announce a death, and is not linked to a verified owner account.
