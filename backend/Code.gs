@@ -35,8 +35,8 @@ function proofSubmit(payload) {
   if(payload.consent!==true) throw new Error('Consent is required.');
   const name=clean_(payload.name,120), email=String(payload.email||'').trim().toLowerCase();
   const reference=clean_(payload.reference,90), phone=clean_(payload.phone,35), amount=Number(payload.amount);
-  if(!name || !validEmail_(email) || !/^[+0-9 ()-]{7,35}$/.test(phone.replace(/^'/,'')) || !reference || !Number.isFinite(amount) || amount<=0 || amount>1000000)
-    throw new Error('Please check your name, email, transaction reference, and donation amount.');
+  if(!name || !validEmail_(email) || !/^[+0-9 ()-]{7,35}$/.test(phone.replace(/^'/,'')) || !Number.isFinite(amount) || amount<=0 || amount>1000000)
+    throw new Error('Please check your name, email, phone number, and donation amount.');
   const mime=String(payload.mime||'').toLowerCase();
   if(!['image/jpeg','image/png','image/webp'].includes(mime)) throw new Error('Upload a JPG, PNG, or WEBP screenshot.');
   const encoded=String(payload.base64||'');
@@ -65,7 +65,7 @@ function proofSubmit(payload) {
       let count=0;
       for(const row of rows){
         const dt=row[1] instanceof Date?Utilities.formatDate(row[1],'Etc/UTC','yyyy-MM-dd'):String(row[1]).slice(0,10);
-        if(String(row[4]).replace(/^'/,'')===reference.replace(/^'/,'')) throw new Error('This transaction reference was already submitted.');
+        if(reference && String(row[4]).replace(/^'/,'')===reference.replace(/^'/,'')) throw new Error('This transaction reference was already submitted.');
         if(String(row[3]).toLowerCase()===email&&dt===today)count++;
       }
       if(count>=OG.maxSubmissionsPerDay) throw new Error('Daily submission limit reached.');
