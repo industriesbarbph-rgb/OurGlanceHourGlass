@@ -111,7 +111,7 @@
       transition:transform .2s ease;
     }
     .og-panel[data-route="prepare"] .og-intro-links .og-action::after{
-      left:0;right:0;opacity:.55;transform:scaleX(1);
+      display:none;
     }
     .og-panel[data-route="prepare"] .og-intro-links .og-action:hover .og-nav-arrow--forward,
     .og-panel[data-route="prepare"] .og-intro-links .og-action:focus-visible .og-nav-arrow--forward{
