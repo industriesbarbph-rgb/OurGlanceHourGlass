@@ -64,9 +64,7 @@ function doPost(e) {
       ]);
       // An invitation submission is contact intake only, not authorization
       // to announce a death, and is not linked to a verified owner account.
-      return invitationResponse_(true,
-        'Your details were received. Please keep your reference: ' + id +
-        '. We will associate your contact details with the correct invitation during secure setup.');
+      return invitationResponse_(true, 'Your details have been received and will be kept private.');
     } finally {
       lock.releaseLock();
     }
