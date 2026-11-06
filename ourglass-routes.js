@@ -111,6 +111,12 @@
       -webkit-text-fill-color:#77716e;color:#77716e;
       transition:transform .2s ease;
     }
+    .og-panel[data-route="prepare"] .og-intro-links .og-action--primary{
+      gap:2px;
+    }
+    .og-panel[data-route="prepare"] .og-intro-links .og-action--primary .og-nav-arrow--forward{
+      width:auto;flex:0 0 auto;
+    }
     .og-panel[data-route="prepare"] .og-intro-links .og-action::after{
       display:none;
     }
@@ -289,7 +295,7 @@
       header("Begin yours", "Your Afterword Account begins here",
         "The three-week preparation period gives you time to consider your wishes and the people who matter. Personal setup follows donation verification and confirmation.") +
       '<div class="og-intro-links">' +
-      actions('<a class="og-action og-action--primary" href="#/donate"><span class="og-nav-arrow og-nav-arrow--forward" aria-hidden="true">↗</span>Donation &amp; submission</a>','<a class="og-action og-action--back" href="#/"><span class="og-nav-arrow og-nav-arrow--back" aria-hidden="true">←</span>Back to The Afterword Concierge</a>') +
+      actions('<a class="og-action og-action--primary" href="#/donate">Donation &amp; submission<span class="og-nav-arrow og-nav-arrow--forward" aria-hidden="true">↗</span></a>','<a class="og-action og-action--back" href="#/"><span class="og-nav-arrow og-nav-arrow--back" aria-hidden="true">←</span>Back to The Afterword Concierge</a>') +
       '</div></div><div class="og-intro-card">' +
       '<div class="og-card"><p class="og-steps-title">The journey ahead</p><ol class="og-steps" aria-label="Your five steps"><li><span class="og-step-number">01</span><span>Donate</span></li><li><span class="og-step-number">02</span><span>Submit proof, email and phone number</span></li><li><span class="og-step-number">03</span><span>We verify and confirm</span></li><li><span class="og-step-number">04</span><span>Three-week preparation</span></li><li><span class="og-step-number">05</span><span>Setup invitation</span></li></ol>' +
       '<p class="og-muted og-timeline-details">Once your donation is verified, we will use your email to contact you at the end of the three-week preparation period with the next steps for your private setup. During that time, choose the <strong>official trusted person</strong> who will inform The Afterword Concierge of your death when the time comes. You will provide their details securely during setup.</p></div>' +
