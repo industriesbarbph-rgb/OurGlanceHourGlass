@@ -102,6 +102,25 @@
     .og-panel[data-route="prepare"] .og-intro-links .og-action:not(.og-action--primary){
       font-size:clamp(18px,1.85vw,22px);
     }
+    .og-panel[data-route="prepare"] .og-intro-links .og-action{
+      width:auto;display:inline-flex;gap:9px;align-items:center;
+    }
+    .og-panel[data-route="prepare"] .og-intro-links .og-nav-arrow{
+      display:inline-block;flex:none;font:400 .82em/1 Georgia,serif;
+      -webkit-text-fill-color:#77716e;color:#77716e;
+      transition:transform .2s ease;
+    }
+    .og-panel[data-route="prepare"] .og-intro-links .og-action::after{
+      left:0;right:0;opacity:.55;transform:scaleX(1);
+    }
+    .og-panel[data-route="prepare"] .og-intro-links .og-action:hover .og-nav-arrow--forward,
+    .og-panel[data-route="prepare"] .og-intro-links .og-action:focus-visible .og-nav-arrow--forward{
+      transform:translate(2px,-2px);
+    }
+    .og-panel[data-route="prepare"] .og-intro-links .og-action:hover .og-nav-arrow--back,
+    .og-panel[data-route="prepare"] .og-intro-links .og-action:focus-visible .og-nav-arrow--back{
+      transform:translateX(-3px);
+    }
     @media(max-width:760px){
       .og-panel[data-route="prepare"]{width:100%;padding:27px 23px 30px}
       .og-panel[data-route="prepare"] .og-intro-layout{display:block}
@@ -269,7 +288,7 @@
       header("Begin yours", "Your Afterword Account begins here",
         "The three-week preparation period gives you time to consider your wishes and the people who matter. Personal setup follows donation verification and confirmation.") +
       '<div class="og-intro-links">' +
-      actions('<a class="og-action og-action--primary" href="#/donate">Donation &amp; submission</a>',home) +
+      actions('<a class="og-action og-action--primary" href="#/donate">Donation &amp; submission<span class="og-nav-arrow og-nav-arrow--forward" aria-hidden="true">↗</span></a>','<a class="og-action og-action--back" href="#/"><span class="og-nav-arrow og-nav-arrow--back" aria-hidden="true">←</span>Back to The Afterword Concierge</a>') +
       '</div></div><div class="og-intro-card">' +
       '<div class="og-card"><p class="og-steps-title">The journey ahead</p><ol class="og-steps" aria-label="Your five steps"><li><span class="og-step-number">01</span><span>Donate</span></li><li><span class="og-step-number">02</span><span>Submit proof, email and phone number</span></li><li><span class="og-step-number">03</span><span>We verify and confirm</span></li><li><span class="og-step-number">04</span><span>Three-week preparation</span></li><li><span class="og-step-number">05</span><span>Setup invitation</span></li></ol>' +
       '<p class="og-muted og-timeline-details">Once your donation is verified, we will use your email to contact you at the end of the three-week preparation period with the next steps for your private setup. During that time, choose the <strong>official trusted person</strong> who will inform The Afterword Concierge of your death when the time comes. You will provide their details securely during setup.</p></div>' +
