@@ -264,7 +264,7 @@
     prepare: () =>
       '<div class="og-intro-layout"><div class="og-intro-heading">' +
       header("Begin yours", "Your Afterword Account begins here",
-        "Your three-week preparation period gives you time to consider your wishes and the people who matter. Personal setup follows donation verification and confirmation.") +
+        "The three-week preparation period gives you time to consider your wishes and the people who matter. Personal setup follows donation verification and confirmation.") +
       '<div class="og-intro-links">' +
       actions('<a class="og-action og-action--primary" href="#/donate">Donation &amp; submission</a>',home) +
       '</div></div><div class="og-intro-card">' +
