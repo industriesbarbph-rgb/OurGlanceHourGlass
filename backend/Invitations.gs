@@ -95,7 +95,7 @@ function invitationResponse_(success, message) {
     'a{color:#4b4540;text-decoration:underline}</style></head><body><main>' +
     '<p>OUR GLASS · The Afterword Concierge</p><h1>' + heading + '</h1><p>' +
     invitationEscape_(message) + '</p>' +
-    '<p><a href="https://ourglass.barbph.com/invite.html">Return to OUR GLASS</a></p>' +
+    '<p><a href="https://ourglass.barbph.com/" target="_blank" rel="noopener noreferrer">Return to OUR GLASS</a></p>' +
     '</main></body></html>'
   ).setTitle('OUR GLASS — ' + heading);
 }
@@ -143,7 +143,7 @@ function donationWebResponse_(success, message) {
     'a{color:#50483f;text-underline-offset:4px}</style></head><body><main>' +
     '<p>OUR GLASS · The Afterword Concierge</p><h1>' + title + '</h1><p>' +
     invitationEscape_(message) + '</p>' +
-    '<p><a href="https://ourglass.barbph.com/">Return to The Afterword Concierge</a></p>' +
+    '<p><a href="https://ourglass.barbph.com/" target="_blank" rel="noopener noreferrer">Return to The Afterword Concierge</a></p>' +
     '</main></body></html>'
   ).setTitle('OUR GLASS — ' + title);
 }
