@@ -99,6 +99,9 @@
       min-height:40px;justify-content:flex-start;text-align:left;
       font-size:clamp(22px,2.25vw,27px);
     }
+    .og-panel[data-route="prepare"] .og-intro-links .og-action:not(.og-action--primary){
+      font-size:clamp(18px,1.85vw,22px);
+    }
     @media(max-width:760px){
       .og-panel[data-route="prepare"]{width:100%;padding:27px 23px 30px}
       .og-panel[data-route="prepare"] .og-intro-layout{display:block}
